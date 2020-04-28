@@ -1,0 +1,34 @@
+import { Reflector } from '@nestjs/core';
+import { ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
+import { StaffAccessLevel } from '../staff/staff.definitions';
+import { generalConfig } from '../../config';
+
+@Injectable()
+export default class BetaAccess {
+  constructor(private readonly reflector: Reflector) {}
+
+  async canActivate(context: ExecutionContext) {
+    if ((generalConfig.betaCreatorAccess || generalConfig.betaEmployerAccess) === false) {
+      return true;
+    }
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    if (!user) {
+      return true;
+    }
+    if ([StaffAccessLevel.Administrator, StaffAccessLevel.Moderator].indexOf(user.type) > -1) {
+      return true;
+    }
+    if (generalConfig.betaCreatorAccess && user.type === 'creator' && user.betaTester) {
+      return true;
+    }
+    if (generalConfig.betaEmployerAccess && user.type === 'employer') {
+      return true;
+    }
+    
+    throw new ForbiddenException('User does not have beta access');
+    
+    rn true;
+    }
+  }
+}
