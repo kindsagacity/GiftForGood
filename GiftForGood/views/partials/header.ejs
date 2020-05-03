@@ -1,51 +1,213 @@
-<div class="page-loader">
-    <div class="page-loader__spinner">
-        <svg viewBox="25 25 50 50">
-            <circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-        </svg>
-    </div>
-</div>
-<style>
-    .top-nav>li>a:not(.header__nav__text) {
-        padding: .6rem 1rem;
-    }
-</style>
+<!-- Header Area Start -->
 
-<header class="header">
-    <div class="navigation-trigger d-xl-none" data-sa-action="aside-open" data-sa-target=".sidebar">
-        <i class="zwicon-hamburger-menu"></i>
-    </div>
-
-    <div class="logo d-none d-sm-inline-flex">
-        <a href="/"><img src="/images/logo.png" width="170"></a>
-    </div>
-    <ul class="top-nav row">
-        <li class="d-none d-sm-inline-block">
-            <a href="" class="top-nav__themes" data-sa-action="aside-open" data-sa-target=".themes"><i class="zwicon-palette"></i></a>
-        </li>
-        <div class="clock d-none d-md-inline-block">
-            <div class="time">
-                <span class="time__hours"></span>
-                <span class="time__min"></span>
-                <span class="time__sec"></span>
+<% if (page_title === 'gift-note') { %>
+<header class="note_header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#"><img src="/resources/images/logo-g.png"/></a>
+                <h2>Where should we send <span>your</span> gift?</h2>
             </div>
         </div>
-        <li class="d-none d-sm-inline-block">
-            <a href="/secret/logout"><i class="zwicon-sign-out"></i></a>
-        </li>
-    </ul>
-</header>
-<div class="themes">
-    <div class="scrollbar">
-        <a href="" class="themes__item active" data-sa-value="1"><img src="/resources/img/bg/1.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="2"><img src="/resources/img/bg/2.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="3"><img src="/resources/img/bg/3.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="4"><img src="/resources/img/bg/4.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="5"><img src="/resources/img/bg/5.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="6"><img src="/resources/img/bg/6.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="7"><img src="/resources/img/bg/7.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="8"><img src="/resources/img/bg/8.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="9"><img src="/resources/img/bg/9.jpg" alt=""></a>
-        <a href="" class="themes__item" data-sa-value="10"><img src="/resources/img/bg/10.jpg" alt=""></a>
     </div>
-</div>
+</header>
+<% } else if (page_title === 'gift-note-thank') { %>
+<header class="note_header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#"><img src="/resources/images/logo-g.png"/></a>
+                <h2>THANK YOU <span>for</span> DOING GOOD!</h2>
+                <p>We will send you an email when your gift ships.</p>
+            </div>
+        </div>
+    </div>
+</header>
+<% } else { %>
+<header class="site_header">
+    <div class="container-fluid">
+        <% if (page_type === 'gift-step-page') { %>
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand logo_main" href="#"><img src="/resources/images/logo.png" alt="logo"/></a>
+
+                <div class="navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <% if (page_title === 'gift-it-forward') { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <img src="/resources/images/icons/buy.png" alt="icon"/>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn getintouch_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    GET IN TOUCH
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right get_dropdown">
+                                    <div class="dropdown_gift_option">
+                                        <div class="dropdown_gift_option_box">
+                                            Your Gift Options
+                                            <button type="button" class="btn gift_close close">
+                                                <img src="/resources/images/icons/close.png" alt="icon"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown_gift_list">
+                                        <ul>
+                                            <% for (let i = 0; i < gift.products.length; i++) { %>
+                                                <li>
+                                                    <div class="gift_list_img">
+                                                        <div class="gift_list_img_box">
+                                                            <img src="<%= gift.products[i]["Image Src"] %>" alt="img"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="gift_list_txt">
+                                                        <%= gift.products[i]["Title"] %>
+                                                    </div>
+                                                    <div class="gift_list_number">1</div>
+                                                </li>
+                                            <% } %>
+                                        </ul>
+                                    </div>
+                                    <div class="dropdown_gift_btn">
+                                        <button type="button" class="btn complete-collection">COMPLETE THE COLLETION</button>
+                                    </div>
+                                    <div class="dropdown_gift_footer">
+                                        Great! You already have <b>free shipping</b>.
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <% } else if (page_title !== 'confirmed-order') {
+                        	var caption = page_title === 'recipient-information' ? 'BACK TO STEP 1'
+                                        : page_title === 'brand-message' ? 'BACK TO STEP 2'
+                                        : page_title === 'confirm-details' ? 'BACK TO STEP 3'
+                                        : '';
+                        %>
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn backstep_btn">
+                                    <%= caption %>
+                                </button>
+                            </div>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </nav>
+        <% } else if (page_title === 'collections') { %>
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand google_logo" href="#"><img src="/resources/images/google.png" alt="Google logo"/></a>
+                <a class="navbar-brand logo_main" href="#"><img src="/resources/images/logo.png" alt="logo"/></a>
+            </nav>
+        <% } else if (page_title === 'single-product') { %>
+            <nav class="navbar-expand-lg text-center">
+                <a class="navbar-brand logo_main" href="#"><img src="/resources/images/logo.png" alt="logo"/></a>
+            </nav>
+        <% } else if (page_title === 'product-detail') { %>
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand logo_main" href="#"><img src="/resources/images/logo.png" alt="logo"/></a>
+
+                <div class="navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button type="button" class="btn getintouch_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <img src="/resources/images/icons/arrow-right.png" alt="icon"> BACK TO GIFTS
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right get_dropdown">
+                                    <div class="dropdown_gift_option">
+                                        <div class="dropdown_gift_option_box">
+                                            Your Gift Options
+                                            <button type="button" class="btn gift_close">
+                                                <img src="/resources/images/icons/close.png" alt="icon"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown_gift_list">
+                                        <ul>
+                                            <li>
+                                                <div class="gift_list_img">
+                                                    <div class="gift_list_img_box">
+                                                        <img src="/resources/images/gifts/1.png" alt="img"/>
+                                                    </div>
+                                                </div>
+                                                <div class="gift_list_txt">
+                                                    The Teakwood
+                                                    <br/>
+                                                    Phone Speaker
+                                                </div>
+                                                <div class="gift_list_number">1</div>
+                                            </li>
+                                            <li>
+                                                <div class="gift_list_img">
+                                                    <div class="gift_list_img_box">
+                                                        <img src="/resources/images/gifts/2.png" alt="img"/>
+                                                    </div>
+                                                </div>
+                                                <div class="gift_list_txt">
+                                                    Nazca Corporate
+                                                    <br/>
+                                                    Travel Pack
+                                                </div>
+                                                <div class="gift_list_number">1</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dropdown_gift_btn">
+                                        <button type="button" class="btn">COMPLETE THE COLLETION</button>
+                                    </div>
+                                    <div class="dropdown_gift_footer">
+                                        Great! You already have <b>free shipping</b>.
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        <% } %>
+    </div>
+</header>
+<% } %>
+
+<!--Step Area Start -->
+<% if (page_type === 'gift-step-page' && page_title !== 'confirmed-order') { %>
+<section class="step_area">
+    <div class="container-fluid">
+        <div class="step_lavel_bg">
+            <div class="step_lavel_over
+                            <%= page_title === 'gift-it-forward' ? 'step_lavel_over_1'
+                                : page_title === 'recipient-information' ? 'step_lavel_over_2'
+                                : page_title === 'brand-message' ? 'step_lavel_over_3'
+                                : 'step_lavel_over_4' %>"></div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="step_item step_active">
+                    <h4>STEP 1</h4>
+                    <p>Gift</p>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="step_item">
+                    <h4>STEP 2</h4>
+                    <p>Recipient</p>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="step_item">
+                    <h4>STEP 3</h4>
+                    <p>Brand <br/> & Message</p>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="step_item">
+                    <h4>STEP 4</h4>
+                    <p>Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<% } %>

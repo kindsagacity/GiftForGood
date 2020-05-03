@@ -8,8 +8,7 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let methodOverride = require('method-override');
 
-let user_route = require('./routes/user_route');
-let admin_route = require('./routes/admin_route');
+let page_route = require('./routes/page_route');
 let auth_route = require('./routes/auth_route');
 let api_route = require('./routes/api_route');
 let dbhelper = require('./util/dbhelper');
@@ -61,7 +60,7 @@ app.use(function (req, res, next) {
 });
 
 mongoose.connect('mongodb://' + config.mongo.host + ':' + config.mongo.port + '/' + config.mongo.db_name,
-                                { useNewUrlParser: true }, async function (err, db) {
+                                { useNewUrlParser: true, useUnifiedTopology: true }, async function (err, db) {
     await dbhelper.initialize();
 
     const now = new Date();
@@ -73,9 +72,8 @@ mongoose.connect('mongodb://' + config.mongo.host + ':' + config.mongo.port + '/
             next();
         };
 
-        app.use('/', attachDB, user_route);
+        app.use('/', attachDB, page_route);
         app.use('/auth', attachDB, auth_route);
-        app.use('/admin', attachDB, admin_route);
         app.use('/api', attachDB, api_route);
 
         /*** Error Routes ***/

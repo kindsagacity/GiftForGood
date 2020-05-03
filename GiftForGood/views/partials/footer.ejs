@@ -1,44 +1,169 @@
-<!-- Older IE warning message -->
-<!--[if IE]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade to any of the following web browsers to access this website.</p>
-
-    <div class="ie-warning__downloads">
-        <a href="http://www.google.com/chrome">
-            <img src="img/browsers/chrome.png" alt="">
-        </a>
-
-        <a href="https://www.mozilla.org/en-US/firefox/new">
-            <img src="img/browsers/firefox.png" alt="">
-        </a>
-
-        <a href="http://www.opera.com">
-            <img src="img/browsers/opera.png" alt="">
-        </a>
-
-        <a href="https://support.apple.com/downloads/safari">
-            <img src="img/browsers/safari.png" alt="">
-        </a>
-
-        <a href="https://www.microsoft.com/en-us/windows/microsoft-edge">
-            <img src="img/browsers/edge.png" alt="">
-        </a>
-
-        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-            <img src="img/browsers/ie.png" alt="">
-        </a>
+<% if (page_type === 'gift-step-page' || page_type === 'confirmed-order-page') { %>
+<footer class="site_footer">
+    <div class="footer_logo">
+        <a href="#"><img src="/resources/images/logo-2.png" alt="logo"/></a>
     </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-<input type="hidden" id="user_session_email_input" value="<%= (session.user)?session.user.email:'' %>">
-
-<div class="custom-alert">
-
-</div>
-
-<div class="custom-message-notifications">
-
-</div>
-
+    <div class="footer_down">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-7">
+                    <div class="footer_txt">
+                        <p>Powered by <span>Gifts for Good</span>. </p>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="term_privacy">
+                        <ul class="ml-auto">
+                            <li>
+                                <a href="#">Terms</a>
+                            </li>
+                            <li>
+                                <span>|</span>
+                            </li>
+                            <li>
+                                <a href="#">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<% } else { %>
+<footer class="site_details_footer">
+        <div class="container-fluid">
+            <div class="row flex-row">
+                <div class="col mobile_100">
+                    <div class="details_footer_item_1">
+                        <img src="/resources/images/logo.png" alt="logo"/>
+                        <ul>
+                            <li>
+                                <a href="#">hello@giftsforgood.com</a>
+                            </li>
+                            <li class="desktop_none">
+                                <span>|</span>
+                            </li>
+                            <li>
+                                <a href="#">(877) 554-1550</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col mobile_50">
+                    <div class="details_footer_item">
+                        <h4>ABOUT</h4>
+                        <ul>
+                            <li>
+                                <a href="#">Our Impact</a>
+                            </li>
+                            <li>
+                                <a href="#">Our Story</a>
+                            </li>
+                            <li>
+                                <a href="#">Our CEO</a>
+                            </li>
+                            <li>
+                                <a href="#">Press & Media</a>
+                            </li>
+                            <li>
+                                <a href="#">Request a Catalog</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col mobile_50">
+                    <div class="details_footer_item">
+                        <h4>HELP</h4>
+                        <ul>
+                            <li>
+                                <a href="#">Contact</a>
+                            </li>
+                            <li>
+                                <a href="#">Customer Service</a>
+                            </li>
+                        </ul>
+                        <div class="desktop_none">
+                            <h4>GET INVOLVED</h4>
+                            <ul>
+                                <li>
+                                    <a href="#">Careers</a>
+                                </li>
+                                <li>
+                                    <a href="#">Partner With Us</a>
+                                </li>
+                                <li>
+                                    <a href="#">Rep Program</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mobile_none">
+                    <div class="details_footer_item">
+                        <h4>GET INVOLVED</h4>
+                        <ul>
+                            <li>
+                                <a href="#">Careers</a>
+                            </li>
+                            <li>
+                                <a href="#">Partner With Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Rep Program</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col mobile_100">
+                    <div class="details_footer_contact">
+                        <h4>CONNECT WITH US</h4>
+                        <div class="details_footer_form">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <div class="footer_social">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-pinterest-p"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="details_footer_down">
+                        <ul>
+                            <li>
+                                <a href="#" class="has_border">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<% } %>

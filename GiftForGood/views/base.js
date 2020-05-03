@@ -2,6 +2,7 @@ module.exports = function(response, template) {
     this.response = response;
     this.template = template;
 };
+
 module.exports.prototype = {
     extend: function(properties) {
         var Child = module.exports;

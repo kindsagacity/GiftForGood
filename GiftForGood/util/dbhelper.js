@@ -1,6 +1,6 @@
 
 let config = require('../config')();
-let UserModel = require('../models/UserModel');
+let UserModel = require('../models/ClientModel');
 
 module.exports = {
 	initialize: async function () {

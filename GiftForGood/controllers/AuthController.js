@@ -13,12 +13,12 @@ let transporter = nodemailer.createTransport({
         pass: config.mail_info.password
     }
 });
-let speakeasy = require('speakeasy');
+
 let ejs = require('ejs');
 let jwt = require('jsonwebtoken');
 
 let BaseController = require('./BaseController');
-let UserModel = require('../models/UserModel');
+let UserModel = require('../models/ClientModel');
 
 module.exports = BaseController.extend({
     name: 'AuthController',

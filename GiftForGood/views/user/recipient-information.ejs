@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+<% include ../partials/header.ejs %>
+
+<div class="step_2_area">
+    <section class="title_area">
+        <div class="container">
+            <h2>
+                RECIPIENT INFORMATION
+            </h2>
+            <p class="step_2_txt_1">
+                Please add or import the names, email addresses, and
+                <br/>
+                company names of your gift recipients from a CSV file
+            </p>
+            <p class="step_2_txt_2">
+                Please enter the name and email of your gift recipient(s).
+            </p>
+        </div>
+    </section>
+
+    <!--Area Start -->
+
+    <section class="step_information_area">
+        <div class="add_title">
+            <div class="container">
+                <h3><img src="/resources/images/icons/add.png"/> Add Contacts</h3>
+            </div>
+        </div>
+        <div class="step_information_boxes">
+            <div class="container side_box">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="step_information_item information_form_box">
+                            <div class="step_information_item_box">
+                                <img src="/resources/images/icons/contacts.png"/>
+                                <h4>TYPE IN CONTACTS</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="step_information_item information_contact_box">
+                            <div class="step_information_item_box">
+                                <img src="/resources/images/icons/file.png"/>
+                                <h4>IMPORT FROM FILE</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--information contact Area Start -->
+
+    <section class="information_contact_area">
+        <div class="add_title">
+            <div class="container">
+                <h3><img src="/resources/images/icons/file-2.png"/> Import Contacts From File</h3>
+            </div>
+        </div>
+        <div class="container side_box">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="choose_file_box">
+                        <div class="drag_area">
+                            <div class="drag_area_content">
+                                <img src="/resources/images/icons/drag-file.png"/>
+                                <h5 class="mobile_none">Choose a file or drag and drop it here</h5>
+                                <h5 class="desktop_none">Upload a file</h5>
+                                <p>(maximum number of rows per file is 1,000)</p>
+                            </div>
+                            <div class="drag_choose_field">
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="csv_btn">
+                        <button type="button" class="btn">Download Example CSV</button>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="step_buttons_area">
+                        <ul>
+                            <li>
+                                <a href="#"><img src="/resources/images/icons/question.png"/> <span>Help</span></a>
+                            </li>
+                            <li>
+                                <button type="button" class="btn common_btn nextstep_btn">NEXT</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="GoBack_link">
+                        <a href="#">
+                            <img src="/resources/images/icons/arrow-1.png"/> Go back and type in contacts manually
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--information Form Area Start -->
+
+    <section class="information_form_area">
+        <div class="add_title">
+            <div class="container">
+                <h3><img src="/resources/images/icons/contacts-2.png"/> Contact Information</h3>
+            </div>
+        </div>
+        <div class="container side_box">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="information_form">
+                        <div class="row">
+                            <%
+                                var first_name = gift['rec_first_name'] || '';
+                                var last_name = gift['rec_last_name'] || '';
+                                var company_name = gift['rec_company_name'] || '';
+                                var email = gift['rec_email'] || '';
+                            %>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="first-name">FIRST NAME(*)</label>
+                                    <input type="text" class="form-control" id="first-name" placeholder="" value="<%= first_name %>">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="last-name">LAST NAME(*)</label>
+                                    <input type="text" class="form-control" id="last-name" placeholder="" value="<%= last_name %>">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="company-name">COMPANY NAME(*)</label>
+                                    <input type="text" class="form-control" id="company-name" placeholder="" value="<%= company_name %>">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="email">EMAIL ADDRESS(*)</label>
+                                    <input type="email" class="form-control" id="email" placeholder="" value="<%= email %>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mobile_none">
+                    <div class="GoBack_link">
+                        <a href="#">
+                            <img src="/resources/images/icons/arrow-1.png"/> Go back and import contacts from file
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="step_buttons_area">
+                        <ul>
+                            <li>
+                                <a href="#"><img src="/resources/images/icons/add-small.png"/> <span>ADD SECOND CONTACT</span></a>
+                            </li>
+                            <li>
+                                <button type="button" class="btn common_btn nextstep_btn">NEXT</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 desktop_none">
+                    <div class="GoBack_link">
+                        <a href="#">
+                            <img src="/resources/images/icons/arrow-1.png"/> Go back and import contacts from file
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Down Banner Area Start -->
+
+    <div class="down_banner_2">
+    </div>
+
+</div>
+
+<% include ../partials/footer.ejs %>
+<% include ../partials/foot.ejs %>
+
+<script>
+    let gift = <%- JSON.stringify(gift) %>
+
+    $('.backstep_btn').on('click', function() {
+        window.location.href = '/step1?gid=' + gift['_id'];
+    });
+    $('.nextstep_btn').on('click', function() {
+    	const first_name = $('#first-name').val();
+    	const last_name = $('#last-name').val();
+    	const company_name = $('#company-name').val();
+    	const email = $('#email').val();
+    	if (first_name && last_name && company_name && email) {
+            $.ajax({
+                url: '/step2/add-information',
+                method: 'post',
+                data: {
+                	gid: gift['_id'],
+                    first_name: first_name,
+                    last_name: last_name,
+                    company_name: company_name,
+                    email: email
+                },
+                success: function (res) {
+                    console.log(res);
+                    window.location.href = '/step3?gid=' + gift['_id'];
+                },
+                error: function (jqXHR, exception) {
+                    console.log(exception);
+                    alert('Invalid operation');
+                }
+            });
+        } else {
+    		alert('Please input all');
+        }
+    });
+    $('.GoBack_link > a').on('click', function() {
+        $('.step_2_area').removeClass('information_contact_open');
+        $('.step_2_area').removeClass('information_form_open');
+    })
+
+</script>
+
+</body>
+</html>

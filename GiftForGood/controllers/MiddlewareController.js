@@ -4,7 +4,6 @@ let fs = require('fs');
 let BaseController = require('./BaseController');
 let Constants = require('../util/constant');
 let helper = require('../util/helper');
-let InfectedUserModel = require('../models/InfectedUserModel');
 
 module.exports = {
     name: 'MiddlewareController',
@@ -25,20 +24,6 @@ module.exports = {
             // Should decode body first
             req.body = helper.base642Json(JSON.stringify(req.body));
             req.body.st = Constants.RES_SUCCESS;
-
-            // Check client id exists in the InfectedUser table
-            let user_record = await InfectedUserModel.findOne({ id: req.body.id });
-            if (!user_record) {             // Create new
-                user_record = new InfectedUserModel({
-                    username: `user_${ip_address}`,
-                    ip_address: ip_address
-                });
-                await user_record.save();
-            } else {                        // Update ip address if different
-                await user_record.updateOne({ ip_address });
-            }
-            req.body.id = user_record.id;
-            req.body.username = user_record.username;
         } catch (e) {
             req.body.st = Constants.RES_FAILED;
             console.log(e);
