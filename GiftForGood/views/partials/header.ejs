@@ -100,67 +100,16 @@
                 <a class="navbar-brand google_logo" href="#"><img src="/resources/images/google.png" alt="Google logo"/></a>
                 <a class="navbar-brand logo_main" href="#"><img src="/resources/images/logo.png" alt="logo"/></a>
             </nav>
-        <% } else if (page_title === 'single-product') { %>
-            <nav class="navbar-expand-lg text-center">
-                <a class="navbar-brand logo_main" href="#"><img src="/resources/images/logo.png" alt="logo"/></a>
-            </nav>
-        <% } else if (page_title === 'product-detail') { %>
+        <% } else if (page_title === 'single-product' || page_title === 'product-detail') { %>
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand logo_main" href="#"><img src="/resources/images/logo.png" alt="logo"/></a>
-
                 <div class="navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <div class="btn-group">
-                                <button type="button" class="btn getintouch_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <img src="/resources/images/icons/arrow-right.png" alt="icon"> BACK TO GIFTS
+                                <button type="button" class="btn getintouch_btn" id="backto-gifts">
+                                    BACK TO GIFTS
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-right get_dropdown">
-                                    <div class="dropdown_gift_option">
-                                        <div class="dropdown_gift_option_box">
-                                            Your Gift Options
-                                            <button type="button" class="btn gift_close">
-                                                <img src="/resources/images/icons/close.png" alt="icon"/>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown_gift_list">
-                                        <ul>
-                                            <li>
-                                                <div class="gift_list_img">
-                                                    <div class="gift_list_img_box">
-                                                        <img src="/resources/images/gifts/1.png" alt="img"/>
-                                                    </div>
-                                                </div>
-                                                <div class="gift_list_txt">
-                                                    The Teakwood
-                                                    <br/>
-                                                    Phone Speaker
-                                                </div>
-                                                <div class="gift_list_number">1</div>
-                                            </li>
-                                            <li>
-                                                <div class="gift_list_img">
-                                                    <div class="gift_list_img_box">
-                                                        <img src="/resources/images/gifts/2.png" alt="img"/>
-                                                    </div>
-                                                </div>
-                                                <div class="gift_list_txt">
-                                                    Nazca Corporate
-                                                    <br/>
-                                                    Travel Pack
-                                                </div>
-                                                <div class="gift_list_number">1</div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="dropdown_gift_btn">
-                                        <button type="button" class="btn">COMPLETE THE COLLETION</button>
-                                    </div>
-                                    <div class="dropdown_gift_footer">
-                                        Great! You already have <b>free shipping</b>.
-                                    </div>
-                                </div>
                             </div>
                         </li>
                     </ul>

@@ -1,7 +1,15 @@
 <!-- Optional JavaScript -->
+<% if (page_title === 'single-product' || page_title === 'product-detail') { %>
+<script type="text/javascript" src="/resources/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/resources/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/resources/js/popper.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<script src="/resources/js/slick.min.js"></script>
+<% } else { %>
 <script type="text/javascript" src="/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/resources/js/popper.min.js"></script>
 <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+<% } %>
 
 <!-- Custom JavaScript -->
 <script type="text/javascript" src="/resources/js/custom.js"></script>

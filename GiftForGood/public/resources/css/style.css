@@ -3,7 +3,6 @@
 /*************start*************/
 img {
 	max-width:100%;
-	max-height:100%;
 	display:inline-block;
 }
 body {
@@ -409,6 +408,7 @@ Custome Select
 .product_img img{
 	max-width: 100%;
 	max-height: 280px;
+	object-fit: contain;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -442,8 +442,11 @@ Custome Select
 }
 .product_info p img{
 	position: absolute;
-	top: 13px;
+	top: 10px;
 	left: 0px;
+	width: 26px;
+	max-height: 100%;
+	object-fit: contain;
 }
 .product_btn{
 	width: 100%;
@@ -1277,6 +1280,7 @@ Custome Select
 }
 .gift_options_item_img img{
 	margin: 0 auto;
+	max-height: 100%;
 }
 .gift_options_item_txt{
 	
@@ -1306,8 +1310,11 @@ Custome Select
 }
 .gift_options_item_txt p img{
 	position: absolute;
-	top: 18px;
+	top: 10px;
 	left: 0px;
+	width: 32px;
+	max-height: 100%;
+	object-fit: contain;
 }
 .gift_options_right_item{
 	border-bottom: 1px solid #DBDBDB;
@@ -1753,6 +1760,10 @@ Custome Select
 }
 .note_form_item h5 img{
 	margin-left: 7px;
+	width: 32px;
+	max-height: 100%;
+	object-fit: contain;
+	margin-top: -10px;
 }
 
 /*************Collection page Area start*************/
@@ -1924,6 +1935,9 @@ Custome Select
 	top: 50%;
 	left: 0px;
 	margin-top: -10px;
+	width: 36px;
+	object-fit: contain;
+	max-height: 100%;
 }
 .product_sec_item_info p{
 	font-weight: 300;

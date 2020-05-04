@@ -14,7 +14,9 @@ let ProductSchema = new Schema({
     "Option2 Value" : String,
     "Option3 Name" : String,
     "Option3 Value" : String,
+    "Google Shopping / Custom Label 0": String,
     "Google Shopping / Custom Label 1": String,
+    "Google Shopping / Custom Label 3": String,
 });
 
 module.exports = mongoose.model('tbl_product', ProductSchema);

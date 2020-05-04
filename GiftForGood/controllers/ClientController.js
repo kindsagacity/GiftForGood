@@ -41,8 +41,7 @@ module.exports = BaseController.extend({
           .find({ "Variant Price": { $gt: low_price, $lte: high_price }, Title: { $ne: ""}, "Image Src": { $ne: "" } })
           .skip(offset)
           .limit(count)
-          .sort({ Title: 1 })
-          .select({ "_id": 1, "Title": 1, "Image Src": 1 });
+          .sort({ Title: 1 });
 
         let gift = { _id: 0, products: [] };
         const gift_record = gift_id ? await GiftModel.findOne({ "_id": gift_id })
@@ -96,10 +95,9 @@ module.exports = BaseController.extend({
               .find({ "Variant Price": { $gt: low_price, $lte: high_price }, Title: { $ne: ""}, "Image Src": { $ne: "" } })
               .skip(offset)
               .limit(count)
-              .sort({ Title: 1 })
-              .select({ "_id": 1, "Title": 1, "Image Src": 1 });
-            count = products.length;
+              .sort({ Title: 1 });
 
+            count = products.length;
             return res.send({ status: "success", products, offset, count });
         } catch (err) {
             console.log(err);

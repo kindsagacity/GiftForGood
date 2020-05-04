@@ -59,7 +59,10 @@
                             <h4><%= products[i]["Title"] %></h4>
                         </div>
                         <p>
-                            <img src="/resources/images/icons/hart.png" alt="img"/> Help someone hear
+                            <% if (products[i]['Google Shopping / Custom Label 3']) { %>
+                            <img src="<%= products[i]['Google Shopping / Custom Label 3'] %>>" alt="img"/>
+                            <% } %>
+                            <%= products[i]['Google Shopping / Custom Label 0'] %>
                         </p>
                         <button type="button" class="btn product_btn" index="<%= i %>">ADD TO COLLECTION</button>
                     </div>
@@ -103,34 +106,39 @@
         $(".getintouch_btn").dropdown('toggle');
     });
 
-	// Click "Add To Collection" button
-	$(".product_btn").on('click', function () {
-		const index = $(this).attr('index');
-		const selected_product = products[index];
-		const product_id = selected_product['_id'];
-        $.ajax({
-            url: '/step1/add-product',
-            method: 'post',
-            data: { product_id, gift_id: gift['_id'] },
-            success: function (res) {
-            	gift['_id'] = res.gift_id;
-            	const product_image = selected_product['Image Src'];
-            	const product_title = selected_product['Title'];
-                const html = '<li>\n' +
-                    '                       <div class="gift_list_img">\n' +
-                    '                           <div class="gift_list_img_box">\n' +
-                    '                               <img src="' + product_image + '" alt="img"/>\n' +
-                    '                           </div>\n' +
-                    '                       </div>\n' +
-                    '                       <div class="gift_list_txt">\n' +
-                                                product_title +
-                    '                       </div>\n' +
-                    '                       <div class="gift_list_number">1</div>\n' +
-                    '                   </li>';
-                $('.dropdown_gift_list > ul').append(html);
-            }
+	function bind_function() {
+	    $('.product_btn').off('click');
+        // Click "Add To Collection" button
+        $(".product_btn").on('click', function () {
+            const index = $(this).attr('index');
+            const selected_product = products[index];
+            const product_id = selected_product['_id'];
+            $.ajax({
+                url: '/step1/add-product',
+                method: 'post',
+                data: { product_id, gift_id: gift['_id'] },
+                success: function (res) {
+                    gift['_id'] = res.gift_id;
+                    const product_image = selected_product['Image Src'];
+                    const product_title = selected_product['Title'];
+                    const html = '<li>\n' +
+                        '                       <div class="gift_list_img">\n' +
+                        '                           <div class="gift_list_img_box">\n' +
+                        '                               <img src="' + product_image + '" alt="img"/>\n' +
+                        '                           </div>\n' +
+                        '                       </div>\n' +
+                        '                       <div class="gift_list_txt">\n' +
+                        product_title +
+                        '                       </div>\n' +
+                        '                       <div class="gift_list_number">1</div>\n' +
+                        '                   </li>';
+                    $('.dropdown_gift_list > ul').append(html);
+                }
+            });
         });
-    });
+    }
+
+	bind_function();
 
 	$("#product-show-more").on('click', function() {
 		if (count === 0) {
@@ -155,7 +163,8 @@
                         '                            <h4>' + product["Title"] + '</h4>\n' +
                         '                        </div>\n' +
                         '                        <p>\n' +
-                        '                            <img src="/resources/images/icons/hart.png" alt="img"/> Help someone hear\n' +
+                        '                            <img src="' + product["Google Shopping / Custom Label 3"] + '" alt="img"/> '
+                                                        + product['Google Shopping / Custom Label 0'] + '\n' +
                         '                        </p>\n' +
                         '                        <button type="button" class="btn product_btn" index="' + start_index + '">ADD TO COLLECTION</button>\n' +
                         '                    </div>\n' +
@@ -164,7 +173,8 @@
                     $('.product_area .container-fluid .products-row').append(html);
                     start_index++;
                 });
-                products.concat(res.products);
+                products = products.concat(res.products);
+                bind_function();
             }
         });
     });

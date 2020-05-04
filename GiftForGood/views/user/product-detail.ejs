@@ -5,138 +5,108 @@
 <body>
 <% include ../partials/header.ejs %>
 
->
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="product_slide_area">
-                <div class="product_slide_1">
-                    <div>
-                        <div class="product_slide_item">
-                            <img src="/resources/images/products/p1.png" alt="logo"/>
-                        </div>
+<section class="product_sec_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="product_slide_area">
+                    <div class="product_slide_1">
+                        <% for (let i = 0; i < 5; i++) { %>
+                            <div>
+                                <div class="product_slide_item">
+                                    <img src="<%= gift['_chosen']['Image Src'] %>" alt="logo"/>
+                                </div>
+                            </div>
+                        <% } %>
                     </div>
-                    <div>
-                        <div class="product_slide_item">
-                            <img src="/resources/images/products/25.png" alt="logo"/>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_slide_item">
-                            <img src="/resources/images/products/6.png" alt="logo"/>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_slide_item">
-                            <img src="/resources/images/products/11.png" alt="logo"/>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_slide_item">
-                            <img src="/resources/images/products/29.png" alt="logo"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="product_slide_2">
-                    <div>
-                        <img src="/resources/images/slide/1.png" alt="logo"/>
-                    </div>
-                    <div>
-                        <img src="/resources/images/slide/2.png" alt="logo"/>
-                    </div>
-                    <div>
-                        <img src="/resources/images/slide/3.png" alt="logo"/>
-                    </div>
-                    <div>
-                        <img src="/resources/images/slide/4.png" alt="logo"/>
-                    </div>
-                    <div>
-                        <img src="/resources/images/slide/5.png" alt="logo"/>
+                    <div class="product_slide_2">
+                        <% for (let i = 0; i < 5; i++) { %>
+                            <div>
+                                <img src="<%= gift['_chosen']['Image Src'] %>" alt="logo"/>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-7">
-            <div class="product_sec_item">
-                <div class="product_sec_item_info">
-                    <h3>Don Javier Handcrafted Briefcase</h3>
-                    <h5>
-                        <img src="/resources/images/icons/hart-2.png" alt="img"/>  Every purchase provides 7 days of schooling for a child in Honduras
-                    </h5>
-                    <p>
-                        A great gift for men of all ages, this premium leather briefcase features 2 large interior
-                        sections, 1 small front pocket, and an adjustable shoulder strap. Handcrafted by one
-                        Honduran artisan from start to finish.
-                    </p>
-                    <h4>OPTIONS</h4>
-                    <ul>
-                        <li class="active" style="background-color: #776863;">
-                            <a href="#"></a>
-                        </li>
-                        <li style="background-color: #af644d;">
-                            <a href="#"></a>
-                        </li>
-                        <li style="background-color: #a27556;">
-                            <a href="#"></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="product_sec_collaps">
-                    <div class="accordion">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        DETAILS
-                                    </button>
-                                </h2>
-                            </div>
+            <div class="col-md-7">
+                <div class="product_sec_item">
+                    <div class="product_sec_item_info">
+                        <h3>Don Javier Handcrafted Briefcase</h3>
+                        <h5>
+                            <img src="<%= gift['_chosen']['Google Shopping / Custom Label 3'] %>" alt="img"/>
+                            <%= gift['_chosen']['Google Shopping / Custom Label 1'] %>
+                        </h5>
+                        <p>
+                            <%- gift['_chosen']['short-desc'] %>
+                        </p>
+                        <h4>OPTIONS</h4>
+                        <ul>
+                            <li class="active" style="background-color: #776863;">
+                                <a href="#"></a>
+                            </li>
+                            <li style="background-color: #af644d;">
+                                <a href="#"></a>
+                            </li>
+                            <li style="background-color: #a27556;">
+                                <a href="#"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="product_sec_collaps">
+                        <div class="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            DETAILS
+                                        </button>
+                                    </h2>
+                                </div>
 
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
-                                <div class="card-body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis in accumsan morbi nullam. Consectetur nibh pharetra aenean volutpat est pulvinar pretium. Tellus ultrices egestas facilisi mauris.
-                                        <br/>
-                                        Quis urna posuere purus sapien. Urna in nunc euismod neque ultricies hendrerit tortor aliquet. Turpis aliquam id diam aliquam non. Ornare imperdiet feugiat tortor consequat turpis.
-                                    </p>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                                    <div class="card-body">
+                                        <p>
+                                            <%- gift['_chosen']['long-desc'] %>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        ASK US A QUESTION
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
-                                <div class="card-body">
-                                    <div class="product_question_form">
-                                        <div class="information_form">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" rows="3" placeholder="Type your question here..."></textarea>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            ASK US A QUESTION
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+                                    <div class="card-body">
+                                        <div class="product_question_form">
+                                            <div class="information_form">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" rows="3" placeholder="Type your question here..."></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>YOUR NAME</label>
-                                                        <input type="text" class="form-control" placeholder="Your name here...">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>YOUR NAME</label>
+                                                            <input type="text" class="form-control" placeholder="Your name here...">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group email_address">
-                                                        <label>YOUR EMAIL</label>
-                                                        <input type="text" class="form-control" placeholder="Your email adress here...">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group email_address">
+                                                            <label>YOUR EMAIL</label>
+                                                            <input type="text" class="form-control" placeholder="Your email adress here...">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="product_question_form_btn">
-                                                        <button type="button" class="btn common_btn">SUBMIT</button>
+                                                    <div class="col-md-12">
+                                                        <div class="product_question_form_btn">
+                                                            <button type="button" class="btn common_btn">SUBMIT</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,15 +116,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="product_details_btn_area">
-                    <button type="button" class="btn dark_btn">GET THIS GIFT</button>
-                    <button type="button" class="btn light_btn">SELECT A DIFFERENT GIFT</button>
+                    <div class="product_details_btn_area">
+                        <button type="button" class="btn dark_btn" id="choose-gift">GET THIS GIFT</button>
+                        <button type="button" class="btn light_btn" id="choose-another">SELECT A DIFFERENT GIFT</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </section>
 
 <!--Devider Title Area Start -->
@@ -186,7 +155,6 @@
                     <p>
                         Mission Lazarus takes a comprehensive approach to development that includes education, medical care, and vocational training programs.  Students in vocational training programs receive wages for their work as well as formal schooling and, in turn, the opportunity for a better future.
 
-
                     </p>
                     <p>
                         Students are trained in sewing, leather working, boot making, carpentry, or coffee farming. Additional proceeds provide  education for children in-need.
@@ -202,6 +170,36 @@
 
 <% include ../partials/footer.ejs %>
 <% include ../partials/foot.ejs %>
+
+<script type="text/javascript">
+	$('.product_slide_1').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: false,
+		fade: true,
+		asNavFor: '.product_slide_2'
+	});
+	$('.product_slide_2').slick({
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		asNavFor: '.product_slide_1',
+		dots: true,
+		centerMode: true,
+		focusOnSelect: true
+	});
+
+    let gift = <%- JSON.stringify(gift) %>
+
+    $('#choose-gift').on('click', function () {
+        window.location.href = '/gift-note?gid=' + gift['_id'];
+    });
+    $('#choose-another').on('click', function () {
+        window.location.href = '/collections?gid=' + gift['_id'];
+    });
+    $('#backto-gifts').on('click', function () {
+			window.location.href = '/collections?gid=' + gift['_id'];
+    });
+</script>
 
 </body>
 </html>

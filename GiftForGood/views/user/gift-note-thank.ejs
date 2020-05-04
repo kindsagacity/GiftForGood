@@ -28,14 +28,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="massege_box">
-                    <textarea class="form-control" rows="3" placeholder="Send Google a thank you note."></textarea>
+                    <textarea class="form-control" rows="3" id="thank-note" placeholder="Send Google a thank you note."><%= gift['thank_note'] %></textarea>
                 </div>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="note_massege_btn_area">
-            <button type="button" class="btn common_btn">SEND THANK YOU NOTE</button>
+            <button type="button" class="btn common_btn" id="send_thank_note">SEND THANK YOU NOTE</button>
         </div>
     </div>
 </section>
@@ -45,5 +45,23 @@
 <% include ../partials/footer.ejs %>
 <% include ../partials/foot.ejs %>
 
+<script type="text/javascript">
+    let gift = <%- JSON.stringify(gift) %>
+
+    $('#send_thank_note').on('click', function() {
+    	const thank_note = $('#thank-note').val();
+        $.ajax({
+            url: '/add-thank-note',
+            type: 'post',
+            data: { gid: gift['_id'], thank_note: thank_note },
+            success: function (res) {
+            },
+            error: function (jqXHR, exception) {
+            	console.log(exception);
+            	alert('Invalid operation');
+            }
+        })
+    });
+</script>
 </body>
 </html>

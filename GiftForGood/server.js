@@ -78,10 +78,10 @@ mongoose.connect('mongodb://' + config.mongo.host + ':' + config.mongo.port + '/
 
         /*** Error Routes ***/
         app.get('*', function (req, res, next) {
-            res.render("partials/error", {session: req.session});
+            res.render("partials/error", {session: req.session, page_title: 'error-page'});
         });
         app.get('/404', function (req, res, next) {
-            res.render("partials/error", {session: req.session});
+            res.render("partials/error", {session: req.session, page_title: 'error-page'});
         });
 
         app.listen(config.port, function () {
