@@ -28,7 +28,7 @@ let config = {
         user: 'bluedragon@gmail.com',
         password: 'password',
     },
-    jwt_secret: '1234567890qwertyuiop',
+    jwt_secret: 'FES2349234<>??F@#S)@DKW',
 };
 
 module.exports = function () {

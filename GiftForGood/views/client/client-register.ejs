@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+
+<div class="login_logo">
+    <a href="#"><img src="/resources/images/logo-2.png" alt="logo"/></a>
+</div>
+
+<!--Log in Area Start -->
+
+<section class="login_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="login_box">
+                    <h3>Registration</h3>
+                    <div class="login_form_box">
+                        <div class="information_form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group user_name">
+                                        <label for="first-name">FIRST NAME</label>
+                                        <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group user_name">
+                                        <label for="last-name">LAST NAME</label>
+                                        <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group email_input">
+                                        <label for="email">EMAIL</label>
+                                        <input type="email" class="form-control" id="email" placeholder="thomas.stary@name.com">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group password_input">
+                                        <label for="password">PASSWORD</label>
+                                        <input type="password" class="form-control" id="password" placeholder="•••••••••••••">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group password_input">
+                                        <label for="password">CONFIRM PASSWORD</label>
+                                        <input type="password" class="form-control" id="confirm-password" placeholder="•••••••••••••">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="login_forget">
+                                        <a href="/login" class="has_border">Have an account</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <button type="button" class="btn common_btn" id="register">REGISTER</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Down Banner Area Start -->
+
+<div class="down_banner_9">
+</div>
+
+<% include ../partials/footer.ejs %>
+<% include ../partials/foot.ejs %>
+
+<script type="text/javascript">
+    $('#register').on('click', function() {
+        const first_name = $('#first-name').val();
+        const last_name = $('#last-name').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        const confirm_password = $('#confirm-password').val();
+        if (!first_name || !last_name || !email || !password) {
+        	alert('Please input all information');
+        } else if (password !== confirm_password) {
+          	alert('Password confirmation failed');
+        } else {
+        	$.ajax({
+                url: '/register',
+                type: 'post',
+                data: { first_name, last_name, email, password },
+                success: function (res) {
+                	window.location.href = '/';
+                },
+                error: function (jqXHR, exception) {
+                	console.log(exception);
+                	alert('Invalid input');
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

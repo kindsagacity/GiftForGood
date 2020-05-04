@@ -1,35 +1,40 @@
-<aside class="sidebar ">
-    <div class="scrollbar">
-        <div class="user">
-            <div class="user__info">
-                <img class="user__img" src="<%= user.avatar %>" alt="MTAssist Logo">
-                <div style="word-break: break-all">
-                    <div class="user__name"><%= user.username %></div>
-                    <div class="user__email"><%= user.email %></div>
-                </div>
-            </div>
-        </div>
+<div class="admin_sitebar">
 
-        <ul class="navigation">
-            <% if(session.user.role == 0 || session.user.role == 1) { %>
-                <li class="<%= (tab_text == 'admin_client_management')?'navigation__active':'' %>">
-                    <a href="/managee/client-management"><i class="zwicon-devices"></i> <%= i18n.__('Infected Users') %></a>
-                </li>
-                <li class="<%= (tab_text == 'admin_program_management')?'navigation__active':'' %>">
-                    <a href="/managee/program-management"><i class="zwicon-lifebelt"></i> <%= i18n.__('Running Programs') %></a>
-                </li>
-                <li class="<%= (tab_text == 'admin_upload_management')?'navigation__active':'' %>">
-                    <a href="/managee/upload-management"><i class="zwicon-upload"></i> <%= i18n.__('Manage Upload') %></a>
-                </li>
-            <% }%>
+    <div class="sitebar_logo">
+        <a href="#">
+            <img src="/resources/images/logo.png"/>
+        </a>
+    </div>
 
-            <li class="<%= (tab_text === 'settings')?'navigation__active':'' %>">
-                <a href="/managee/account-settings"><i class="zwicon-cog"></i> <%= i18n.__('Account Setting') %></a>
+    <div class="sitebar_nav">
+        <ul>
+            <li class="<%= page_title === 'client-dashboard' ? 'active' : '' %>">
+                <a  href="/dashboard">Collections</a>
             </li>
-
-            <li>
-                <a href="/secret/logout"><i class="zwicon-sign-out"></i> <%= i18n.__('Logout') %></a>
+            <li class="<%= page_title === 'client-gifts' ? 'active' : '' %>">
+                <a  href="/gifts">Gifts</a>
+            </li>
+            <li class="<%= page_title === 'client-activity' ? 'active' : '' %>">
+                <a  href="/activity">Activity</a>
+            </li>
+            <li class="<%= page_title === 'client-users' ? 'active' : '' %>">
+                <a  href="/users">Users</a>
             </li>
         </ul>
     </div>
-</aside>
+
+    <div class="sitebar_btn">
+        <button type="button" class="btn common_btn" id="create-collection"><a href="/step1" style="color: #333" target="_blank">+ CREATE COLLECTION</a></button>
+    </div>
+
+    <div class="sitebar_setting">
+        <ul>
+            <li>
+                <a  href="#"><img src="/resources/images/icons/setting.png" alt="icon"/>Settings</a>
+            </li>
+            <li>
+                <a  href="/logout"><img src="/resources/images/icons/logout.png" alt="icon"/>Logout</a>
+            </li>
+        </ul>
+    </div>
+</div>

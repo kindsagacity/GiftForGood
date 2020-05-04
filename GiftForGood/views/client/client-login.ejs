@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+
+<div class="login_logo">
+    <a href="#"><img src="/resources/images/logo-2.png" alt="logo"/></a>
+</div>
+
+<!--Log in Area Start -->
+
+<section class="login_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="login_box">
+                    <h3>Login</h3>
+                    <div class="login_form_box">
+                        <div class="information_form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group user_name">
+                                        <label for="user-name">USERNAME</label>
+                                        <input type="text" class="form-control" id="user-name" placeholder="thomas.stary@name.com">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group password_input">
+                                        <label for="password">PASSWORD</label>
+                                        <input type="password" class="form-control" id="password" placeholder="•••••••••••••">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="login_forget">
+                                        <a href="#" class="has_border">Forgot password?</a>
+                                        <div class="preview_here">
+                                            <a><img src="/resources/images/icons/question.png" width="16" alt="img"/></a>
+                                            <div class="preview_hover_view">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque aleget aenean commodo suspendisse in pharetra sed. Tortor lobortis eleifend mauris sed ultrices. Blandit sed tortor volutpat urna, et eget. In lacinia imperdiet integer cras vulputate nisl.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <button type="button" class="btn common_btn" id="login">LOGIN</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="login_register">
+                                        <a href="/register">Register</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Down Banner Area Start -->
+
+<div class="down_banner_9">
+</div>
+
+<% include ../partials/footer.ejs %>
+<% include ../partials/foot.ejs %>
+
+<script type="text/javascript">
+    let redirect_url = <%- JSON.stringify(redirect) %>
+
+    $('#login').on('click', function() {
+    	const email = $('#user-name').val();
+    	const password = $('#password').val();
+    	if (!email || !password) {
+    		alert('Please input all');
+        } else {
+    		$.ajax({
+                url: '/login',
+                type: 'post',
+                data: { email, password },
+                success: function(res) {
+                    if (!redirect_url) {
+                    	redirect_url = '/gifts';
+                    }
+                    window.location.href = redirect_url;
+                },
+                error: function (jqXHR, exception) {
+                    console.log(exception);
+                    alert('Invalid email or password');
+                }
+            })
+        }
+        window.location.href = '/gifts';
+    });
+</script>
+
+</body>
+</html>

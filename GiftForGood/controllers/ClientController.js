@@ -13,6 +13,46 @@ let Helper = require('../util/helper');
 module.exports = BaseController.extend({
     name: 'ClientController',
 
+    dashboard: async function (req, res, next) {
+        let v = new View(res, 'client/client-dashboard');
+        v.render({
+            page_title: 'client-dashboard',
+            page_type: 'client-dashboard-page',
+            session: req.session,
+            i18n: res
+        });
+    },
+
+    gifts: async function (req, res, next) {
+        let v = new View(res, 'client/client-gifts');
+        v.render({
+            page_title: 'client-gifts',
+            page_type: 'client-dashboard-page',
+            session: req.session,
+            i18n: res
+        });
+    },
+
+    activity: async function (req, res, next) {
+        let v = new View(res, 'client/client-activity');
+        v.render({
+            page_title: 'client-activity',
+            page_type: 'client-dashboard-page',
+            session: req.session,
+            i18n: res
+        });
+    },
+
+    users: async function (req, res, next) {
+        let v = new View(res, 'client/client-users');
+        v.render({
+            page_title: 'client-users',
+            page_type: 'client-dashboard-page',
+            session: req.session,
+            i18n: res
+        });
+    },
+
     gift_it_forward: async function (req, res, next) {
         let price = req.query.price;
         const gift_id = req.query.gid;
@@ -43,7 +83,7 @@ module.exports = BaseController.extend({
           .limit(count)
           .sort({ Title: 1 });
 
-        let gift = { _id: 0, products: [] };
+        let gift = { _id: "", products: [] };
         const gift_record = gift_id ? await GiftModel.findOne({ "_id": gift_id })
                                             .populate('_products')
                                     : await GiftModel.findOne({ "step": { $ne: "ordered" } })
@@ -56,7 +96,7 @@ module.exports = BaseController.extend({
             }
         }
 
-        let v = new View(res, 'user/gift-it-forward');
+        let v = new View(res, 'client/gift-it-forward');
         v.render({
             page_title: 'gift-it-forward',
             page_type: 'gift-step-page',
@@ -107,10 +147,10 @@ module.exports = BaseController.extend({
     add_product_as_gift: async function (req, res, next) {
         try {
             let success = true;
-            const product_id = req.body.product_id;
-            let gift_id = req.body.gift_id;
-            let gift = await GiftModel.findOne({ _id: gift_id });
-            if (gift) {
+            const product_id = req.body.pid;
+            let gift_id = req.body.gid;
+            let gift = null;
+            if (gift_id && (gift = await GiftModel.findOne({ _id: gift_id }))) {
                 if (gift._products.includes(product_id)) {
                     success = false;
                 } else {
@@ -150,7 +190,7 @@ module.exports = BaseController.extend({
         const gift = await GiftModel.findOne({ _id: gift_id });
         // If gift with given id exists
         if (gift) {
-            let v = new View(res, 'user/recipient-information');
+            let v = new View(res, 'client/recipient-information');
             v.render({
                 page_title: 'recipient-information',
                 page_type: 'gift-step-page',
@@ -200,7 +240,7 @@ module.exports = BaseController.extend({
         const gift = await GiftModel.findOne({ _id: gift_id });
         // If gift with given id exists
         if (gift) {
-            let v = new View(res, 'user/brand-message');
+            let v = new View(res, 'client/brand-message');
             v.render({
                 page_title: 'brand-message',
                 page_type: 'gift-step-page',
@@ -247,7 +287,7 @@ module.exports = BaseController.extend({
 
         // If gift with given id exists
         if (gift) {
-            let v = new View(res, 'user/confirm-details');
+            let v = new View(res, 'client/confirm-details');
             v.render({
                 page_title: 'confirm-details',
                 page_type: 'gift-step-page',
@@ -266,6 +306,7 @@ module.exports = BaseController.extend({
             const gift_id = req.body.gid;
             const gift = await GiftModel.findOne({ _id: gift_id }).populate('_products');
             if (gift) {
+                await gift.updateOne({ step: 'ordered' });
                 return res.send({
                     status: 'success'
                 });
@@ -286,7 +327,7 @@ module.exports = BaseController.extend({
     },
 
     confirmed_order: async function (req, res, next) {
-        let v = new View(res, 'user/confirmed-order');
+        let v = new View(res, 'client/confirmed-order');
         v.render({
             page_title: 'confirmed-order',
             page_type: 'gift-step-page',

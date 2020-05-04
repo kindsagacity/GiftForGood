@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+
+<div class="admin">
+    <% include ../partials/sidebar.ejs %>
+
+    <!-- Admin Main Area CSS -->
+
+    <div class="admin_main">
+
+        <div class="alert alert-dismissible fade show signed_alart" role="alert">
+            <img src="/resources/images/icons/green-tic.png" alt="img"/>
+            Signed in successfully.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="admin_title_area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Users</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="add_user">
+                            <button type="button" class="btn common_btn" data-toggle="modal" data-target="#addUser">+ ADD USER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="users_area">
+            <div class="users_item">
+                <table border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td class="users_item_number">
+                            1
+                        </td>
+                        <td class="users_faceName">
+                            <div class="users_faceName_box">
+                                <img class="user_face" src="/resources/images/users/1.png" alt="img"/>
+                                Thomas Stary
+                            </div>
+                        </td>
+                        <td class="users_info">
+                            thomas.stary@name.com
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
+                        </td>
+                        <td class="users_info">
+                            Last sign in date: <b>10/20/2019</b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="users_item">
+                <table border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td class="users_item_number">
+                            1
+                        </td>
+                        <td class="users_faceName">
+                            <div class="users_faceName_box">
+                                <img class="user_face" src="/resources/images/users/2.png" alt="img"/>
+                                Luciana Edgas
+                            </div>
+                        </td>
+                        <td class="users_info">
+                            thomas.stary@name.com
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
+                        </td>
+                        <td class="users_info">
+                            Last sign in date: <b>10/20/2019</b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="users_item">
+                <table border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td class="users_item_number">
+                            1
+                        </td>
+                        <td class="users_faceName">
+                            <div class="users_faceName_box">
+                                <img class="user_face" src="/resources/images/users/3.png" alt="img"/>
+                                Mira Kenter
+                            </div>
+                        </td>
+                        <td class="users_info">
+                            thomas.stary@name.com
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
+                        </td>
+                        <td class="users_info">
+                            Last sign in date: <b>10/20/2019</b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="users_item">
+                <table border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td class="users_item_number">
+                            1
+                        </td>
+                        <td class="users_faceName">
+                            <div class="users_faceName_box">
+                                <img class="user_face" src="/resources/images/users/4.png" alt="img"/>
+                                Zaire Torff
+                            </div>
+                        </td>
+                        <td class="users_info">
+                            thomas.stary@name.com
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
+                        </td>
+                        <td class="users_info">
+                            Last sign in date: <b>10/20/2019</b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="users_item">
+                <table border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td class="users_item_number">
+                            1
+                        </td>
+                        <td class="users_faceName">
+                            <div class="users_faceName_box">
+                                <img class="user_face" src="/resources/images/users/5.png" alt="img"/>
+                                Hanna Donin
+                            </div>
+                        </td>
+                        <td class="users_info">
+                            thomas.stary@name.com
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
+                        </td>
+                        <td class="users_info">
+                            Last sign in date: <b>10/20/2019</b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="users_item">
+                <table border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td class="users_item_number">
+                            1
+                        </td>
+                        <td class="users_faceName">
+                            <div class="users_faceName_box">
+                                <img class="user_face" src="/resources/images/users/1.png" alt="img"/>
+                                Thomas Stary
+                            </div>
+                        </td>
+                        <td class="users_info">
+                            thomas.stary@name.com
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
+                        </td>
+                        <td class="users_info">
+                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
+                        </td>
+                        <td class="users_info">
+                            Last sign in date: <b>10/20/2019</b>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <% include ../partials/footer.ejs %>
+
+</div>
+
+<% include ../partials/foot.ejs %>
+
+<!-- Modal -->
+
+<div class="modal fade addUser_modal" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="information_form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="first-name">FIRST NAME</label>
+                                <input type="text" class="form-control" id="first-name" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="last-name">LAST NAME</label>
+                                <input type="text" class="form-control" id="last-name" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_devider"></div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label>ADDRESS</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>SUITE / APARTMENT</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>CITY</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mobile_60">
+                            <div class="form-group">
+                                <label>STATE</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3 mobile_40">
+                            <div class="form-group">
+                                <label for="last-name">ZIP CODE</label>
+                                <input type="text" class="form-control" id="last-name" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_devider"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group email_address">
+                                <label>EMAIL ADDRESS</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group phone_number">
+                                <label>PHONE NUMBER</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note_confirm_btn_area">
+                    <button type="button" class="btn common_btn">CONFIRM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+</body>
+</html>

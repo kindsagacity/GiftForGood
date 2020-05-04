@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+<% include ../partials/header.ejs %>
+
+<!--Banner Area Start -->
+
+<div class="top_banner">
+</div>
+
+<!--Product Sectiom Area Start -->
+
+<section class="product_sec_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="product_slide_area">
+                    <div class="product_slide_1">
+                        <% for (let i = 0; i < 5; i++) { %>
+                        <div>
+                            <div class="product_slide_item">
+                                <img src="<%= gift['_chosen']['Image Src'] %>" alt="logo"/>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                    <div class="product_slide_2">
+                        <% for (let i = 0; i < 5; i++) { %>
+                        <div>
+                            <img src="<%= gift['_chosen']['Image Src'] %>" alt="logo"/>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="product_sec_item">
+                    <div class="product_sec_item_info">
+                        <h3><%= gift['_chosen']['Title'] %></h3>
+                        <h5>
+                            <img src="<%= gift['_chosen']['Google Shopping / Custom Label 3'] %>" alt="img"/>
+                            <%= gift['_chosen']['Google Shopping / Custom Label 1'] %>
+                        </h5>
+                        <p>
+                            <%- gift['_chosen']['short-desc'] %>
+                        </p>
+                        <h4>OPTIONS</h4>
+                        <ul>
+                            <li class="active" style="background-color: #776863;">
+                                <a href="#"></a>
+                            </li>
+                            <li style="background-color: #af644d;">
+                                <a href="#"></a>
+                            </li>
+                            <li style="background-color: #a27556;">
+                                <a href="#"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="product_sec_btn_1">
+                        <button type="button" class="btn common_btn" id="claim-gift">CLAIM YOUR GIFT</button>
+                    </div>
+                    <div class="product_sec_collaps">
+                        <div class="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            DETAILS
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+                                    <div class="card-body">
+                                        <p>
+                                            <%- gift['_chosen']['long-desc'] %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            ASK US A QUESTION
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo">
+                                    <div class="card-body">
+                                        <div class="product_question_form">
+                                            <div class="information_form">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" rows="3" placeholder="Type your question here..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>YOUR NAME</label>
+                                                            <input type="text" class="form-control" placeholder="Your name here...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group email_address">
+                                                            <label>YOUR EMAIL</label>
+                                                            <input type="text" class="form-control" placeholder="Your email adress here...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="product_question_form_btn">
+                                                            <button type="button" class="btn common_btn">SUBMIT</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Devider Title Area Start -->
+
+<section class="devider_title_area">
+    <div class="container-fluid">
+        <div class="devider_title_area_box">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        THE IMPACT <span>of</span> YOUR GIFT
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--gift Impact Area Start -->
+
+<section class="gift_impact_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="/resources/images/img-1.png" alt="img" />
+            </div>
+            <div class="col-md-7">
+                <div class="gift_impact_content">
+                    <p>
+                        Mission Lazarus takes a comprehensive approach to development that includes education, medical care, and vocational training programs.  Students in vocational training programs receive wages for their work as well as formal schooling and, in turn, the opportunity for a better future.
+                    </p>
+                    <p>
+                        Students are trained in sewing, leather working, boot making, carpentry, or coffee farming. Additional proceeds provide  education for children in-need.
+                    </p>
+                    <p>
+                        Your purchase today ensures children in Honduras will have a better tomorrow.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<% include ../partials/footer.ejs %>
+<% include ../partials/foot.ejs %>
+
+<script type="text/javascript">
+	$('.product_slide_1').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: false,
+		fade: true,
+		asNavFor: '.product_slide_2'
+	});
+	$('.product_slide_2').slick({
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		asNavFor: '.product_slide_1',
+		dots: true,
+		centerMode: true,
+		focusOnSelect: true
+	});
+
+	let gift = <%- JSON.stringify(gift) %>
+
+    $('#claim-gift').on('click', function () {
+        window.location.href = '/product/detail?gid=' + gift['_id'];
+    });
+    $('#backto-gifts').on('click', function () {
+        window.location.href = '/collections?gid=' + gift['_id'];
+    });
+</script>
+
+</body>
+</html>

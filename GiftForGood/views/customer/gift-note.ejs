@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+<% include ../partials/header.ejs %>
+
+<!--Note Sub title Area Start -->
+
+<section class="note_form_area">
+    <div class="container side_box_2">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="note_form_item">
+                    <div class="note_form_item_box">
+                        <img src="<%= gift['_chosen']['Image Src'] %>" alt="img"/>
+                    </div>
+                    <p><%= gift['_chosen']['Title'] %></p>
+                    <h5>Your Gift for Good supporting <img src="<%= gift['_chosen']['Google Shopping / Custom Label 3'] %>" alt="img"/> </h5>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="information_form">
+                    <%
+                    var first_name = gift['rec_first_name'] || '';
+                    var last_name = gift['rec_last_name'] || '';
+                    var address = gift['rec_address'] || '';
+                    var apartment = gift['rec_apartment'] || '';
+                    var city = gift['rec_city'] || '';
+                    var state = gift['rec_state'] || '';
+                    var zip_code = gift['rec_zip_code'] || '';
+                    var email = gift['rec_email'] || '';
+                    var phone = gift['rec_phone'] || '';
+                    %>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="first-name">FIRST NAME</label>
+                                <input type="text" class="form-control" id="first-name" placeholder="" value="<%= first_name %>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="last-name">LAST NAME</label>
+                                <input type="text" class="form-control" id="last-name" placeholder="" value="<%= last_name %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_devider"></div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label>ADDRESS</label>
+                                <input type="text" class="form-control" id="address" placeholder="" value="<%= address %>">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>SUITE / APARTMENT</label>
+                                <input type="text" class="form-control" id="apartment" placeholder="" value="<%= apartment %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>CITY</label>
+                                <input type="text" class="form-control" id="city" placeholder="" value="<%= city %>">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mobile_60">
+                            <div class="form-group">
+                                <label>STATE</label>
+                                <input type="text" class="form-control" id="state" placeholder="" value="<%= state %>">
+                            </div>
+                        </div>
+                        <div class="col-md-3 mobile_40">
+                            <div class="form-group">
+                                <label for="last-name">ZIP CODE</label>
+                                <input type="text" class="form-control" id="zip-code" placeholder="" value="<%= zip_code %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_devider"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group email_address">
+                                <label>EMAIL ADDRESS</label>
+                                <input type="text" class="form-control" id="email" placeholder="" value="<%= email %>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group phone_number">
+                                <label>PHONE NUMBER</label>
+                                <input type="text" class="form-control" id="phone" placeholder="" value="<%= phone %>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="note_confirm_btn_area">
+            <button type="button" class="btn common_btn" id="confirm-gift">CONFIRM</button>
+        </div>
+    </div>
+</section>
+
+<div class="down_banner_5"></div>
+
+<% include ../partials/footer.ejs %>
+<% include ../partials/foot.ejs %>
+
+<script type="text/javascript">
+    let gift = <%- JSON.stringify(gift) %>
+
+    $('#confirm-gift').on('click', function() {
+    	const first_name = $('#first-name').val();
+        const last_name = $('#last-name').val();
+        const address = $('#address').val();
+        const apartment = $('#apartment').val();
+        const city = $('#city').val();
+        const state = $('#state').val();
+        const zip_code = $('#zip-code').val();
+        const email = $('#email').val();
+        const phone = $('#phone').val();
+        $.ajax({
+            url: '/confirm-gift',
+            method: 'post',
+            data: { gid: gift['_id'], first_name, last_name, address, apartment, city, state, zip_code, email, phone },
+            success: function (res) {
+                console.log(res);
+                window.location.href = '/gift-note-thank?gid=' + gift['_id'];
+            },
+            error: function (jqXHR, exception) {
+                console.log(exception);
+                alert('Invalid operation');
+            }
+        });
+    });
+</script>
+</body>
+</html>

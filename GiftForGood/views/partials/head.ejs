@@ -17,5 +17,8 @@
 
     <!-- Custome CSS -->
     <link rel="stylesheet" href="/resources/css/style.css">
+    <% if (page_type === 'client-dashboard-page' || page_type === 'client-auth-page') { %>
+    <link rel="stylesheet" href="/resources/css/admin.css">
+    <% } %>
     <link rel="stylesheet" href="/resources/css/responsive.css">
 </head>

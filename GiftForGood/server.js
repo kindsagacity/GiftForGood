@@ -8,8 +8,9 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let methodOverride = require('method-override');
 
-let page_route = require('./routes/page_route');
 let auth_route = require('./routes/auth_route');
+let client_route = require('./routes/client_route');
+let customer_route = require('./routes/customer_route');
 let api_route = require('./routes/api_route');
 let dbhelper = require('./util/dbhelper');
 let config = require('./config')();
@@ -72,16 +73,17 @@ mongoose.connect('mongodb://' + config.mongo.host + ':' + config.mongo.port + '/
             next();
         };
 
-        app.use('/', attachDB, page_route);
-        app.use('/auth', attachDB, auth_route);
+        app.use('/', attachDB, auth_route);
+        app.use('/', attachDB, client_route);
+        app.use('/', attachDB, customer_route);
         app.use('/api', attachDB, api_route);
 
         /*** Error Routes ***/
         app.get('*', function (req, res, next) {
-            res.render("partials/error", {session: req.session, page_title: 'error-page'});
+            res.render("partials/error", {session: req.session, page_type: 'error-page', page_title: 'error-page'});
         });
         app.get('/404', function (req, res, next) {
-            res.render("partials/error", {session: req.session, page_title: 'error-page'});
+            res.render("partials/error", {session: req.session, page_type: 'error-page', page_title: 'error-page'});
         });
 
         app.listen(config.port, function () {

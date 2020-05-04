@@ -14,7 +14,7 @@ module.exports = BaseController.extend({
         const gift = await GiftModel.findOne({ _id: gift_id }).populate('_products');
 
         if (gift) {
-            let v = new View(res, 'user/collections');
+            let v = new View(res, 'customer/collections');
             v.render({
                 page_title: 'collections',
                 page_type: 'customer-page',
@@ -59,7 +59,7 @@ module.exports = BaseController.extend({
             const $ = cheerio.load(product_content);
             gift['_chosen']['short-desc'] = $('p.short-desc').html();
             gift['_chosen']['long-desc'] = $('div.long-desc').html();
-            let v = new View(res, 'user/single-product');
+            let v = new View(res, 'customer/single-product');
             v.render({
                 page_title: 'single-product',
                 page_type: 'customer-page',
@@ -78,7 +78,7 @@ module.exports = BaseController.extend({
             const $ = cheerio.load(product_content);
             gift['_chosen']['short-desc'] = $('p.short-desc').html();
             gift['_chosen']['long-desc'] = $('div.long-desc').html();
-            let v = new View(res, 'user/product-detail');
+            let v = new View(res, 'customer/product-detail');
             v.render({
                 page_title: 'product-detail',
                 page_type: 'customer-page',
@@ -93,7 +93,7 @@ module.exports = BaseController.extend({
         let gift_id = req.query.gid;
         const gift = await GiftModel.findOne({ _id: gift_id }).populate('_chosen');
         if (gift) {
-            let v = new View(res, 'user/gift-note');
+            let v = new View(res, 'customer/gift-note');
             v.render({
                 page_title: 'gift-note',
                 page_type: 'customer-page',
@@ -144,7 +144,7 @@ module.exports = BaseController.extend({
         const gift_id = req.query.gid;
         const gift = await GiftModel.findOne({ _id: gift_id });
         if (gift) {
-            let v = new View(res, 'user/gift-note-thank');
+            let v = new View(res, 'customer/gift-note-thank');
             v.render({
                 page_title: 'gift-note-thank',
                 page_type: 'customer-page',

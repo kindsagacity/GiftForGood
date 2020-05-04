@@ -1,8 +1,11 @@
-<% if (page_type === 'gift-step-page' || page_type === 'confirmed-order-page') { %>
+<!-- Footer type is different for the pages -->
+<% if (page_type === 'gift-step-page' || page_type === 'confirmed-order-page' || page_type === 'error-page' || page_type === 'client-auth-page') { %>
 <footer class="site_footer">
+    <% if (page_type !== 'error-page' && page_type !== 'client-auth-page') { %>
     <div class="footer_logo">
         <a href="#"><img src="/resources/images/logo-2.png" alt="logo"/></a>
     </div>
+    <% } %>
     <div class="footer_down">
         <div class="container-fluid">
             <div class="row">
@@ -30,6 +33,42 @@
         </div>
     </div>
 </footer>
+<% } else if (page_type === 'client-dashboard-page') { %>
+<div class="admin_footer">
+    <div class="footer_down">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <div class="footer_txt">
+                        <p>Powered by <span>Gifts for Good</span>. </p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="admin_footer_logo">
+                        <a href="#">
+                            <img src="/resources/images/logo.png"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="term_privacy">
+                        <ul class="ml-auto">
+                            <li>
+                                <a href="#">Terms</a>
+                            </li>
+                            <li>
+                                <span>|</span>
+                            </li>
+                            <li>
+                                <a href="#">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <% } else { %>
 <footer class="site_details_footer">
         <div class="container-fluid">

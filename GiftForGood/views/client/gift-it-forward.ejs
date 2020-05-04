@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+<% include ../partials/header.ejs %>
+
+<!--Hero Area Start -->
+
+<section class="hero_area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero_content">
+                    <h3>
+                        <span class="hero_content_sp">
+                            I want to help people and the planet
+                            <br/>
+                            by giving the
+                        </span>
+                        <span class="custom-select ml-auto">
+                          <select id="price-select">
+                          <%
+                          let options = [25, 50, 75, 100, 150, 200, 1000];
+                          for (let i = 0; i < options.length; i++) {
+                          	const selected = limit_price == options[i] ? "selected" : "";
+                          	const disp_str = i < options.length - 1 ? ("$" + options[i] + " collection") : "Luxe collection";
+                          	%><option value="<%=options[ i ] %>" <%=selected %>><%=disp_str %></option><%
+                          }
+                            %>
+                          </select>
+                        </span>
+                        .
+                    </h3>
+                    <p>
+                        Please select up to 12 gifts you would like to send
+                        <br/>
+                        in your custom collection of gift choices.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Product Area Start -->
+
+<section class="product_area">
+    <div class="container-fluid">
+        <div class="row products-row">
+            <% for (let i = 0; i < products.length; i++) { %>
+            <div class="col-md-3">
+                <div class="product_item">
+                    <div class="product_img">
+                        <img src="<%= products[i]["Image Src"] %>" alt="img"/>
+                    </div>
+                    <div class="product_info">
+                        <div class="product_title">
+                            <h4><%= products[i]["Title"] %></h4>
+                        </div>
+                        <p>
+                            <% if (products[i]['Google Shopping / Custom Label 3']) { %>
+                            <img src="<%= products[i]['Google Shopping / Custom Label 3'] %>>" alt="img"/>
+                            <% } %>
+                            <%= products[i]['Google Shopping / Custom Label 0'] %>
+                        </p>
+                        <button type="button" class="btn product_btn" index="<%= i %>">ADD TO COLLECTION</button>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product_showmore">
+                    <button type="button" class="btn" id="product-show-more">SHOW MORE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Down Banner Area Start -->
+
+<div class="down_banner">
+</div>
+
+<% include ../partials/footer.ejs %>
+<% include ../partials/foot.ejs %>
+
+<script>
+    let products = <%- JSON.stringify(products) %>
+    let gift = <%- JSON.stringify(gift) %>
+    let offset = <%- JSON.stringify(offset) %>
+    let count = <%- JSON.stringify(count) %>
+
+	$("#price-select").next().next().on('click', function() {
+		const selected_price = $("#price-select").val();
+		const cur_url = new URL(window.location.href);
+		const current_price = cur_url.searchParams.get("price");
+		if (current_price !== selected_price) {
+			window.location.href = '/step1?price=' + selected_price;
+        }
+	});
+	$(".gift_close").on('click', function() {
+        $(".getintouch_btn").dropdown('toggle');
+    });
+
+	function bind_function() {
+	    $('.product_btn').off('click');
+        // Click "Add To Collection" button
+        $(".product_btn").on('click', function () {
+            const index = $(this).attr('index');
+            const selected_product = products[index];
+            const product_id = selected_product['_id'];
+            $.ajax({
+                url: '/step1/add-product',
+                method: 'post',
+                data: { pid: product_id, gid: gift['_id'] },
+                success: function (res) {
+                    gift['_id'] = res.gift_id;
+                    const product_image = selected_product['Image Src'];
+                    const product_title = selected_product['Title'];
+                    const html = '<li>\n' +
+                        '                       <div class="gift_list_img">\n' +
+                        '                           <div class="gift_list_img_box">\n' +
+                        '                               <img src="' + product_image + '" alt="img"/>\n' +
+                        '                           </div>\n' +
+                        '                       </div>\n' +
+                        '                       <div class="gift_list_txt">\n' +
+                        product_title +
+                        '                       </div>\n' +
+                        '                       <div class="gift_list_number">1</div>\n' +
+                        '                   </li>';
+                    $('.dropdown_gift_list > ul').append(html);
+                }
+            });
+        });
+    }
+
+	bind_function();
+
+	$("#product-show-more").on('click', function() {
+		if (count === 0) {
+			return;
+        }
+        $.ajax({
+            url: '/step1/show-more',
+            method: 'post',
+            data: { offset, count },
+            success: function (res) {
+                offset = Number(res.offset) || 0;
+                count = Number(res.count) || 20;
+                let start_index = products.length;
+                res.products.forEach(product => {
+                    const html = '<div class="col-md-3">\n' +
+                        '                <div class="product_item">\n' +
+                        '                    <div class="product_img">\n' +
+                        '                        <img src="' + product["Image Src"] + '" alt="img"/>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="product_info">\n' +
+                        '                        <div class="product_title">\n' +
+                        '                            <h4>' + product["Title"] + '</h4>\n' +
+                        '                        </div>\n' +
+                        '                        <p>\n' +
+                        '                            <img src="' + product["Google Shopping / Custom Label 3"] + '" alt="img"/> '
+                                                        + product['Google Shopping / Custom Label 0'] + '\n' +
+                        '                        </p>\n' +
+                        '                        <button type="button" class="btn product_btn" index="' + start_index + '">ADD TO COLLECTION</button>\n' +
+                        '                    </div>\n' +
+                        '                </div>\n' +
+                        '            </div>';
+                    $('.product_area .container-fluid .products-row').append(html);
+                    start_index++;
+                });
+                products = products.concat(res.products);
+                bind_function();
+            }
+        });
+    });
+
+	$('.complete-collection').on('click', function() {
+		if (gift && gift['_id']) {
+            window.location.href = '/step2?gid=' + gift['_id'];
+        }
+    });
+
+</script>
+
+</body>
+</html>

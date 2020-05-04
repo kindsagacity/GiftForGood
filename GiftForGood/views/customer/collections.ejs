@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ../partials/head.ejs %>
+
+<body>
+<% include ../partials/header.ejs %>
+
+<section class="hero_slider">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="hero_slider_img">
+                    <img src="/resources/images/hero_bg_8.png" class="d-block w-100" alt="img">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero_slider_img">
+                    <img src="/resources/images/hero_bg_7.png" class="d-block w-100" alt="img">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero_slider_img">
+                    <img src="/resources/images/hero_bg_6.png" class="d-block w-100" alt="img">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero_slider_img">
+                    <img src="/resources/images/hero_bg_5.png" class="d-block w-100" alt="img">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero_slider_img">
+                    <img src="/resources/images/hero_bg_4.png" class="d-block w-100" alt="img">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Product Area Start -->
+
+<section class="product_area collections_product_area">
+    <div class="container-fluid">
+        <div class="row">
+            <% for (let i = 0; i < gift._products.length; i++) { %>
+            <div class="col-md-3">
+                <div class="product_item">
+                    <div class="product_img">
+                        <img src="<%= gift._products[i]['Image Src'] %>" alt="img"/>
+                    </div>
+                    <div class="product_info">
+                        <div class="product_title">
+                            <h4><%= gift._products[i]['Title'] %></h4>
+                        </div>
+                        <p>
+                            <% if (gift._products[i]['Google Shopping / Custom Label 3']) { %>
+                            <img src="<%= gift._products[i]['Google Shopping / Custom Label 3'] %>" alt="img"/>
+                            <% } %>
+                            <%= gift._products[i]['Google Shopping / Custom Label 0'] %>
+                        </p>
+                        <button type="button" class="btn product_btn" index="<%= i %>">CHOOSE THIS GIFT</button>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+
+<div class="down_banner_7"></div>
+
+<% include ../partials/footer.ejs %>
+<% include ../partials/foot.ejs %>
+
+<script>
+    let gift = <%- JSON.stringify(gift) %>
+
+    $('.product_btn').on('click', function() {
+        const index = Number($(this).attr('index'));
+        console.log(gift);
+        const product = gift._products[index];
+        const gift_id = gift['_id'];
+        const product_id = product['_id'];
+        $.ajax({
+            url: '/collections/choose',
+            method: 'post',
+            data: { gid: gift_id, pid: product_id },
+            success: function (res) {
+                window.location.href = '/product/single?gid=' + gift_id;
+            },
+            error: function (err) {
+            	console.log(err);
+            	alert('Invalid operation');
+            }
+        });
+    });
+</script>
+</body>
+</html>
