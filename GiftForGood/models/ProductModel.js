@@ -17,6 +17,8 @@ let ProductSchema = new Schema({
     "Google Shopping / Custom Label 0": String,
     "Google Shopping / Custom Label 1": String,
     "Google Shopping / Custom Label 3": String,
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('tbl_product', ProductSchema);

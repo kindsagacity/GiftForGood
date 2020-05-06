@@ -21,6 +21,8 @@ let GiftSchema = new Schema({
     email_logo: String,
     email_banner: String,
     thank_note: String
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('tbl_gift', GiftSchema);

@@ -32,62 +32,82 @@
         <div class="admin_collection_area">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>$25 Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5>$25 collection</h5>
+                            <a href="/step1?price=25">
+                                <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            </a>
+
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>$50 Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5>$50 collection</h5>
+                            <a href="/step1?price=50">
+                                <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            </a>
+
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>$75 Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5>$75 collection</h5>
+                            <a href="/step1?price=75">
+                                <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            </a>
+
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>$100 Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5>$100 collection</h5>
+                            <a href="/step1?price=100">
+                                <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            </a>
+
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>$150 Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5>$150 collection</h5>
+                            <a href="/step1?price=150">
+                                <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>$200 Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5>$200 collection</h5>
+                            <a href="/step1?price=200">
+                                <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>Luxe Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5>Luxe collection</h5>
+                            <a href="/step1?price=1000">
+                                <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <% for (let i = 0; i < collections.length; i++) { %>
+                    <div class="col-md-6 col-sm-12 col-xl-3" style="padding-bottom: 30px;">
                         <div class="admin_collection_item">
                             <img src="/resources/images/collection.png" alt="img"/>
-                            <h5>Ipsum Collection</h5>
-                            <button type="button" class="btn common_btn">VIEW COLLECTION</button>
+                            <h5><%= collections[i]['title'] %></h5>
+                            <button type="button" class="btn common_btn view-collection" index="<%= collections[i]['_id'] %>">VIEW COLLECTION</button>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </div>
@@ -100,8 +120,11 @@
 
 <% include ../partials/foot.ejs %>
 
-<script>
-
+<script type="text/javascript">
+    $('.view-collection').on('click', function () {
+        const collection_id = $(this).attr('index');
+        window.location.href = '/step1?cid=' + collection_id;
+    })
 </script>
 
 </body>

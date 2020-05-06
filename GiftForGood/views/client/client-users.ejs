@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="add_user">
-                            <button type="button" class="btn common_btn" data-toggle="modal" data-target="#addUser">+ ADD USER</button>
+                            <button type="button" class="btn common_btn" data-toggle="modal" data-target="#add-user-modal">+ ADD USER</button>
                         </div>
                     </div>
                 </div>
@@ -35,180 +35,37 @@
         </div>
 
         <div class="users_area">
+            <% for (let i = 0; i < users.length; i++) { %>
             <div class="users_item">
                 <table border="0" cellspacing="0" cellpadding="0">
 
                     <tr>
-                        <td class="users_item_number">
-                            1
+                        <td class="users_item_number" style="width: 25px;">
+                            <%= i + 1 %>
                         </td>
-                        <td class="users_faceName">
+                        <td class="users_faceName" style="width: 150px;">
                             <div class="users_faceName_box">
-                                <img class="user_face" src="/resources/images/users/1.png" alt="img"/>
-                                Thomas Stary
+                                <img class="user_face" src="<%= users[i]['avatar'] %>" alt="img"/>
+                                <%= users[i]['first_name'] %> <%= users[i]['last_name'] %>
                             </div>
                         </td>
-                        <td class="users_info">
-                            thomas.stary@name.com
+                        <td class="users_info" style="width: 100px;">
+                            <%= users[i]['email'] %>
                         </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
+                        <td class="users_info" style="width: 200px;">
+                            <img src="/resources/images/icons/user.png" alt="icon" /> <%= users[i]['job'] %>
                         </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
+                        <td class="users_info" style="width: 200px;">
+                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> <%= users[i]['address'] %>
                         </td>
-                        <td class="users_info">
-                            Last sign in date: <b>10/20/2019</b>
+                        <td class="users_info" style="width: 150px; text-align: right;">
+                            Last sign in date: <b>05/06/2020</b>
                         </td>
                     </tr>
 
                 </table>
             </div>
-            <div class="users_item">
-                <table border="0" cellspacing="0" cellpadding="0">
-
-                    <tr>
-                        <td class="users_item_number">
-                            1
-                        </td>
-                        <td class="users_faceName">
-                            <div class="users_faceName_box">
-                                <img class="user_face" src="/resources/images/users/2.png" alt="img"/>
-                                Luciana Edgas
-                            </div>
-                        </td>
-                        <td class="users_info">
-                            thomas.stary@name.com
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
-                        </td>
-                        <td class="users_info">
-                            Last sign in date: <b>10/20/2019</b>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="users_item">
-                <table border="0" cellspacing="0" cellpadding="0">
-
-                    <tr>
-                        <td class="users_item_number">
-                            1
-                        </td>
-                        <td class="users_faceName">
-                            <div class="users_faceName_box">
-                                <img class="user_face" src="/resources/images/users/3.png" alt="img"/>
-                                Mira Kenter
-                            </div>
-                        </td>
-                        <td class="users_info">
-                            thomas.stary@name.com
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
-                        </td>
-                        <td class="users_info">
-                            Last sign in date: <b>10/20/2019</b>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="users_item">
-                <table border="0" cellspacing="0" cellpadding="0">
-
-                    <tr>
-                        <td class="users_item_number">
-                            1
-                        </td>
-                        <td class="users_faceName">
-                            <div class="users_faceName_box">
-                                <img class="user_face" src="/resources/images/users/4.png" alt="img"/>
-                                Zaire Torff
-                            </div>
-                        </td>
-                        <td class="users_info">
-                            thomas.stary@name.com
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
-                        </td>
-                        <td class="users_info">
-                            Last sign in date: <b>10/20/2019</b>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="users_item">
-                <table border="0" cellspacing="0" cellpadding="0">
-
-                    <tr>
-                        <td class="users_item_number">
-                            1
-                        </td>
-                        <td class="users_faceName">
-                            <div class="users_faceName_box">
-                                <img class="user_face" src="/resources/images/users/5.png" alt="img"/>
-                                Hanna Donin
-                            </div>
-                        </td>
-                        <td class="users_info">
-                            thomas.stary@name.com
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
-                        </td>
-                        <td class="users_info">
-                            Last sign in date: <b>10/20/2019</b>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="users_item">
-                <table border="0" cellspacing="0" cellpadding="0">
-
-                    <tr>
-                        <td class="users_item_number">
-                            1
-                        </td>
-                        <td class="users_faceName">
-                            <div class="users_faceName_box">
-                                <img class="user_face" src="/resources/images/users/1.png" alt="img"/>
-                                Thomas Stary
-                            </div>
-                        </td>
-                        <td class="users_info">
-                            thomas.stary@name.com
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/user.png" alt="icon" /> Creative Director at Lorem Ipsum
-                        </td>
-                        <td class="users_info">
-                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> New York, NY
-                        </td>
-                        <td class="users_info">
-                            Last sign in date: <b>10/20/2019</b>
-                        </td>
-                    </tr>
-
-                </table>
-            </div>
+            <% } %>
         </div>
 
     </div>
@@ -221,7 +78,7 @@
 
 <!-- Modal -->
 
-<div class="modal fade addUser_modal" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade addUser_modal" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -229,6 +86,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="information_form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group user-avatar-section">
+                                <div class="user-image-area">
+                                    <img src="/resources/images/users/default.png" id="user-avatar-img" alt="user-image">
+                                </div>
+                                <div class="user-image-select-area">
+                                    <input type="file" class="form-control-file" id="user-avatar-file" accept="image/png">
+                                </div>
+                                <label>SELECT USER AVATAR</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -245,36 +115,16 @@
                     </div>
                     <div class="form_devider"></div>
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>ADDRESS</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" id="address" placeholder="">
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>SUITE / APARTMENT</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label>CITY</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mobile_60">
-                            <div class="form-group">
-                                <label>STATE</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-3 mobile_40">
-                            <div class="form-group">
-                                <label for="last-name">ZIP CODE</label>
-                                <input type="text" class="form-control" id="last-name" placeholder="">
+                                <label>JOB</label>
+                                <input type="text" class="form-control" id="job" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -283,27 +133,114 @@
                         <div class="col-md-6">
                             <div class="form-group email_address">
                                 <label>EMAIL ADDRESS</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="email" class="form-control" id="email" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group phone_number">
                                 <label>PHONE NUMBER</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" id="phone" placeholder="">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="note_confirm_btn_area">
-                    <button type="button" class="btn common_btn">CONFIRM</button>
+                    <button type="button" class="btn common_btn" id="add-user">ADD</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
+    let users = <%- JSON.stringify(users) %>
+    let avatar_link = 'http://159.65.181.178/resources/images/users/default.png';
+    $('#add-user').on('click', function () {
+        const first_name = $('#first-name').val();
+        const last_name = $('#last-name').val();
+        const address = $('#address').val();
+        const job = $('#job').val();
+        const email = $('#email').val();
+        const phone = $('#phone').val();
 
+        $('#add-user-modal').modal('hide');
+
+        $.ajax({
+            url: '/users/add',
+            type: 'post',
+            data: {
+                avatar: avatar_link, first_name, last_name, address, job, email, phone
+            },
+            success: function (res) {
+                $('#first-name').val('');
+                $('#last-name').val('');
+                $('#address').val('');
+                $('#job').val('');
+                $('#email').val('');
+                $('#phone').val('');
+                let $source = $('#user-avatar-img');
+                $source[0].src = 'http://159.65.181.178/resources/images/users/default.png';
+
+                users.push(res.data);
+                const html = '<div class="users_item">\n' +
+                    '                <table border="0" cellspacing="0" cellpadding="0">\n' +
+                    '\n' +
+                    '                    <tr>\n' +
+                    '                        <td class="users_item_number">\n' + users.length +
+                    '                        </td>\n' +
+                    '                        <td class="users_faceName">\n' +
+                    '                            <div class="users_faceName_box">\n' +
+                    '                                <img class="user_face" src="' + res.data['avatar'] + '" alt="img"/>\n' +
+                                                        res.data['first_name'] + ' ' + res.data['last_name'] +
+                    '                            </div>\n' +
+                    '                        </td>\n' +
+                    '                        <td class="users_info">\n' + res.data['email'] +
+                    '                        </td>\n' +
+                    '                        <td class="users_info">\n' +
+                    '                            <img src="/resources/images/icons/user.png" alt="icon" /> ' + res.data['job'] +
+                    '                        </td>\n' +
+                    '                        <td class="users_info">\n' +
+                    '                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> ' + res.data['address'] +
+                    '                        </td>\n' +
+                    '                        <td class="users_info">\n' +
+                    '                            Last sign in date: <b>05/06/2020</b>\n' +
+                    '                        </td>\n' +
+                    '                    </tr>\n' +
+                    '\n' +
+                    '                </table>\n' +
+                    '            </div>';
+                $('.users_area').append(html);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    $('#user-avatar-file').on('change', function (evt) {
+        if (!evt.target.files.length) {
+            return;
+        }
+        let formData = new FormData();
+        formData.append('file', evt.target.files[0]);
+
+        $.ajax({
+            url: '/upload-file',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+                avatar_link = res.file_link;
+                let $source = $('#user-avatar-img');
+                $source[0].src = URL.createObjectURL(evt.target.files[0]);
+            },
+            error: function (e) {
+                console.log(e);
+                alert('File upload failed');
+            }
+        })
+    });
 </script>
 
 </body>

@@ -22,7 +22,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group user_name">
                                         <label for="user-name">USERNAME</label>
-                                        <input type="text" class="form-control" id="user-name" placeholder="thomas.stary@name.com">
+                                        <input type="text" class="form-control" id="user-name" placeholder="your@name.com">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -88,7 +88,7 @@
                 data: { email, password },
                 success: function(res) {
                     if (!redirect_url) {
-                    	redirect_url = '/gifts';
+                    	redirect_url = '/';
                     }
                     window.location.href = redirect_url;
                 },

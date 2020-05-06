@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="admin_activity_area">
+        <div class="admin_activity_area d-none">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
@@ -56,89 +56,33 @@
 
         <div class="admin_pastOrder_area">
             <div class="container-fluid">
-                <div class="admin_subtitle">
+                <div class="admin_subtitle d-none">
                     <h4>Past orders</h4>
                 </div>
+                <% for (let i = 0; i < gifts.length; i++) { %>
                 <div class="pastorder_item">
                     <table border="0" cellspacing="0" cellpadding="0">
 
                         <tr>
-                            <td class="order_info">
+                            <td class="order_info" style="width: 250px;">
                                 6:20 AM EDT, APRIL 14, 2020
                             </td>
                             <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/products/p1.png" alt="icon" /> Don Javier Handcrafted Briefcase
+                                <img class="order_product_img" src="<%= gifts[i]['_chosen']['Image Src'] %>" alt="icon" />
+                                <%= gifts[i]['_chosen']['Title'] %>
                             </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/hart-3.png" alt="icon" />
+                            <td class="order_info" style="width: 150px;">
+                                <img class="order_product_img" style="width: 24px;" src="<%= gifts[i]['_chosen']['Google Shopping / Custom Label 3'] %>" alt="icon" />
                             </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/user.png" alt="icon" /> Zain Torff
+                            <td class="order_info" style="width: 200px;">
+                                <img class="order_product_img" src="/resources/images/icons/user.png" alt="icon" />
+                                <%= gifts[i]['rec_first_name'] %> <%= gifts[i]['rec_last_name'] %>
                             </td>
                         </tr>
 
                     </table>
                 </div>
-                <div class="pastorder_item">
-                    <table border="0" cellspacing="0" cellpadding="0">
-
-                        <tr>
-                            <td class="order_info">
-                                6:20 AM EDT, APRIL 14, 2020
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/products/28.png" alt="icon" /> Don Javier Handcrafted Briefcase
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/hart-3.png" alt="icon" />
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/user.png" alt="icon" /> Zain Torff
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-                <div class="pastorder_item">
-                    <table border="0" cellspacing="0" cellpadding="0">
-
-                        <tr>
-                            <td class="order_info">
-                                6:20 AM EDT, APRIL 14, 2020
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/products/p1.png" alt="icon" /> Don Javier Handcrafted Briefcase
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/hart-3.png" alt="icon" />
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/user.png" alt="icon" /> Zain Torff
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-                <div class="pastorder_item">
-                    <table border="0" cellspacing="0" cellpadding="0">
-
-                        <tr>
-                            <td class="order_info">
-                                6:20 AM EDT, APRIL 14, 2020
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/products/28.png" alt="icon" /> Don Javier Handcrafted Briefcase
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/hart-3.png" alt="icon" />
-                            </td>
-                            <td class="order_info">
-                                <img class="order_product_img" src="/resources/images/icons/user.png" alt="icon" /> Zain Torff
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
+                <% } %>
             </div>
         </div>
 

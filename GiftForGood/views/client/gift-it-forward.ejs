@@ -52,7 +52,7 @@
             <div class="col-md-3">
                 <div class="product_item">
                     <div class="product_img">
-                        <img src="<%= products[i]["Image Src"] %>" alt="img"/>
+                        <img src="<%= products[i]["Image Src"] %>" onerror="onProductImgError(this)" alt="img"/>
                     </div>
                     <div class="product_info">
                         <div class="product_title">
@@ -60,7 +60,7 @@
                         </div>
                         <p>
                             <% if (products[i]['Google Shopping / Custom Label 3']) { %>
-                            <img src="<%= products[i]['Google Shopping / Custom Label 3'] %>>" alt="img"/>
+                            <img src="<%= products[i]['Google Shopping / Custom Label 3'] %>" class="shopping-label-img" onerror="onLabelImgError(this)" alt="img"/>
                             <% } %>
                             <%= products[i]['Google Shopping / Custom Label 0'] %>
                         </p>
@@ -85,6 +85,50 @@
 <div class="down_banner">
 </div>
 
+<!-- Save confirm dialog -->
+<div class="modal fade message-modal" id="save-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="message-section">
+                    <img src="/resources/images/icons/question-1.png" alt="quesiton" >
+                    <span>Do you want to save this collection?</span>
+                </div>
+                <div class="confirm-btn-group">
+                    <button type="button" class="btn common_btn" id="save-confirm-yes">YES</button>
+                    <button type="button" class="btn common_btn" id="save-confirm-no">NO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Collection title input dialog -->
+<div class="modal fade input-modal" id="input-title-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="input-section">
+                    <img src="/resources/images/icons/write.png" alt="quesiton" >
+                    <div class="row">
+                        <label for="collection-name">COLLECTION NAME</label>
+                        <input type="text" class="form-control" id="collection-name" placeholder="">
+                    </div>
+                </div>
+                <div class="confirm-btn-group">
+                    <button type="button" class="btn common_btn" id="save-collection">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <% include ../partials/footer.ejs %>
 <% include ../partials/foot.ejs %>
 
@@ -93,13 +137,24 @@
     let gift = <%- JSON.stringify(gift) %>
     let offset = <%- JSON.stringify(offset) %>
     let count = <%- JSON.stringify(count) %>
+    const limit_price = <%- JSON.stringify(limit_price) %>
+    let selected_product_ids = [];
+    let collection_id = <%- JSON.stringify(cid) %>
+
+    for (let i = 0; i < gift['_products'].length; i++) {
+        selected_product_ids.push(gift['_products'][i]['_id']);
+    }
 
 	$("#price-select").next().next().on('click', function() {
 		const selected_price = $("#price-select").val();
 		const cur_url = new URL(window.location.href);
 		const current_price = cur_url.searchParams.get("price");
 		if (current_price !== selected_price) {
-			window.location.href = '/step1?price=' + selected_price;
+		    let link = '/step1?price=' + selected_price;
+		    if (gift['_id']) {
+		        link += '&gid=' + gift['_id'];
+            }
+			window.location.href = link;
         }
 	});
 	$(".gift_close").on('click', function() {
@@ -113,6 +168,7 @@
             const index = $(this).attr('index');
             const selected_product = products[index];
             const product_id = selected_product['_id'];
+            selected_product_ids.push(product_id);
             $.ajax({
                 url: '/step1/add-product',
                 method: 'post',
@@ -121,6 +177,7 @@
                     gift['_id'] = res.gift_id;
                     const product_image = selected_product['Image Src'];
                     const product_title = selected_product['Title'];
+                    const product_price = (Math.round(selected_product['Variant Price'] * 100) / 100).toFixed(2);
                     const html = '<li>\n' +
                         '                       <div class="gift_list_img">\n' +
                         '                           <div class="gift_list_img_box">\n' +
@@ -130,7 +187,7 @@
                         '                       <div class="gift_list_txt">\n' +
                         product_title +
                         '                       </div>\n' +
-                        '                       <div class="gift_list_number">1</div>\n' +
+                        '                       <div class="gift_list_number">$ ' + product_price + '</div>\n' +
                         '                   </li>';
                     $('.dropdown_gift_list > ul').append(html);
                 }
@@ -141,13 +198,13 @@
 	bind_function();
 
 	$("#product-show-more").on('click', function() {
-		if (count === 0) {
+		if (count == 0) {
 			return;
         }
         $.ajax({
             url: '/step1/show-more',
             method: 'post',
-            data: { offset, count },
+            data: { offset, count, price: limit_price, cid: collection_id },
             success: function (res) {
                 offset = Number(res.offset) || 0;
                 count = Number(res.count) || 20;
@@ -179,10 +236,53 @@
         });
     });
 
-	$('.complete-collection').on('click', function() {
-		if (gift && gift['_id']) {
-            window.location.href = '/step2?gid=' + gift['_id'];
+	$('#complete-collection').on('click', function() {
+		if (gift && gift['_id'] && selected_product_ids.length) {
+		    $('#save-confirm-modal').modal();
+            // window.location.href = '/step2?gid=' + gift['_id'];
         }
+    });
+
+	$('#save-confirm-no').on('click', function() {
+        $('#save-confirm-modal').modal('hide');
+        window.location.href = '/step2?gid=' + gift['_id'];
+    });
+
+	$('#save-confirm-yes').on('click', function() {
+        $('#save-confirm-modal').modal('hide');
+	    $('#input-title-modal').modal();
+    });
+
+    $('#save-collection').on('click', function() {
+        window.location.href = '/step2?gid=' + gift['_id'];
+        const collection_name = $('#collection-name').val();
+        $.ajax({
+            url: '/step1/save-collection',
+            type: 'post',
+            data: {
+                products: selected_product_ids,
+                title: collection_name
+            },
+            success: function (res) {
+                window.location.href = '/step2?gid=' + gift['_id'];
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    });
+
+	function onProductImgError(e) {
+	    e.src = '/resources/images/products/default.png';
+    }
+
+    function onLabelImgError(e) {
+	    console.log('onLabelImgError');
+	    e.src = '/resources/images/icons/hart.png';
+    }
+
+    $('.shopping-label-img').on('error', function() {
+        console.log('loading image filed');
     });
 
 </script>

@@ -16,6 +16,8 @@ let ClientSchema = new Schema({
         default: '/images/profiles/default.png',
     },
     role: Number,
+}, {
+    timestamps: true
 });
 
 // event

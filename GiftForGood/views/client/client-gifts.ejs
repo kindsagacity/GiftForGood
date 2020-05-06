@@ -42,7 +42,7 @@
                     <div class="col-md-4">
                         <div class="admin_search_nav">
                             <ul>
-                                <li>
+                                <li style="display: none;">
                                     <div class="step_checkbox_area">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="customCheck3">
@@ -72,6 +72,8 @@
             </div>
         </div>
 
+        <% for (let i = 0; i < gifts.length; i++) { %>
+
         <div class="gifts_area">
             <div class="gifts_activity_area">
                 <div class="container-fluid">
@@ -96,226 +98,34 @@
             </div>
             <div class="gifts_client_area">
                 <div class="client_gifts_img">
-                    <img src="/resources/images/products/1.png" alt="img">
+                    <img src="<%= gifts[i]['_chosen']['Image Src'] %>" alt="img">
                 </div>
                 <div class="gifts_client_info">
                     <div class="gifts_client_img">
                         <img class="user_face" src="/resources/images/users/6.png" alt="img">
                     </div>
                     <div class="gifts_client_info_txt">
-                        <h4>Thomas Stary</h4>
-                        <h5>thomas.stary@name.com</h5>
+                        <h4><%= gifts[i]['rec_first_name'] %> <%= gifts[i]['rec_last_name'] %></h4>
+                        <h5><%= gifts[i]['rec_email'] %></h5>
                         <p>
                             <img src="/resources/images/icons/map-marker.png" alt="icon">
-                            Lorem Ipsum - Creative Director
+                            <%= gifts[i]['rec_address'] %>
                             <br/>
-                            New York, NY
+                            <%= gifts[i]['rec_city'] %>, <%= gifts[i]['rec_state'] %>
                         </p>
                     </div>
                 </div>
                 <div class="gifts_client_txt">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper eu viverra amet, habitant lacinia ipsum sit dolor. Nunc cras enim congue odio augue mattis massa mauris. Mauris mauris vel in faucibus aliquam dui lectus adipiscing erat. Interdum non quam nibh mi tristique. Ut consectetur nibh vivamus ultrices turpis elit at enim.
+                        <%- gifts[i]['_chosen']['short-desc'] %>
                     </p>
                 </div>
             </div>
 
         </div>
-        <div class="gifts_area">
-            <div class="gifts_activity_area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="gifts_activity_info">
-                                <div class="gifts_activity_status active"></div>
-                                <ul>
-                                    <li>6:20 AM EDT, APRIL 14, 2020</li>
-                                    <li>TRACKING #: &nbsp; <b class="has_border">8547693521489</b></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="gifts_activity_btns">
-                                <button type="button" class="btn messaged_btn">MESSAGED</button>
-                                <button type="button" class="btn ressaged_btn">REDEEMED</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="gifts_client_area">
-                <div class="client_gifts_img">
-                    <img src="/resources/images/products/22.png" alt="img">
-                </div>
-                <div class="gifts_client_info">
-                    <div class="gifts_client_img">
-                        <img class="user_face" src="/resources/images/users/7.png" alt="img">
-                    </div>
-                    <div class="gifts_client_info_txt">
-                        <h4>Luciana Edgas</h4>
-                        <h5>Luc.edgas@name.com</h5>
-                        <p>
-                            <img src="/resources/images/icons/map-marker.png" alt="icon">
-                            Dolor Amet - Head Manager
-                            <br/>
-                            Los Angeles, CA
-                        </p>
-                    </div>
-                </div>
-                <div class="gifts_client_txt">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper eu viverra amet, habitant lacinia ipsum sit dolor. Nunc cras enim congue odio augue mattis massa mauris. Mauris mauris vel in faucibus aliquam dui lectus adipiscing erat. Interdum non quam nibh mi tristique. Ut consectetur nibh vivamus ultrices turpis elit at enim.
-                    </p>
-                </div>
-            </div>
 
-        </div>
-        <div class="gifts_area">
-            <div class="gifts_activity_area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="gifts_activity_info">
-                                <div class="gifts_activity_status active"></div>
-                                <ul>
-                                    <li>6:20 AM EDT, APRIL 14, 2020</li>
-                                    <li>TRACKING #: &nbsp; <b class="has_border">8547693521489</b></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="gifts_activity_btns">
-                                <button type="button" class="btn messaged_btn">MESSAGED</button>
-                                <button type="button" class="btn ressaged_btn">REDEEMED</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="gifts_client_area">
-                <div class="client_gifts_img">
-                    <img src="/resources/images/products/1.png" alt="img">
-                </div>
-                <div class="gifts_client_info">
-                    <div class="gifts_client_img">
-                        <img class="user_face" src="/resources/images/users/6.png" alt="img">
-                    </div>
-                    <div class="gifts_client_info_txt">
-                        <h4>Thomas Stary</h4>
-                        <h5>thomas.stary@name.com</h5>
-                        <p>
-                            <img src="/resources/images/icons/map-marker.png" alt="icon">
-                            Lorem Ipsum - Creative Director
-                            <br/>
-                            New York, NY
-                        </p>
-                    </div>
-                </div>
-                <div class="gifts_client_txt">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper eu viverra amet, habitant lacinia ipsum sit dolor. Nunc cras enim congue odio augue mattis massa mauris. Mauris mauris vel in faucibus aliquam dui lectus adipiscing erat. Interdum non quam nibh mi tristique. Ut consectetur nibh vivamus ultrices turpis elit at enim.
-                    </p>
-                </div>
-            </div>
+        <% } %>
 
-        </div>
-        <div class="gifts_area">
-            <div class="gifts_activity_area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="gifts_activity_info">
-                                <div class="gifts_activity_status active"></div>
-                                <ul>
-                                    <li>6:20 AM EDT, APRIL 14, 2020</li>
-                                    <li>TRACKING #: &nbsp; <b class="has_border">8547693521489</b></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="gifts_activity_btns">
-                                <button type="button" class="btn messaged_btn">MESSAGED</button>
-                                <button type="button" class="btn ressaged_btn">REDEEMED</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="gifts_client_area">
-                <div class="client_gifts_img">
-                    <img src="/resources/images/products/1.png" alt="img">
-                </div>
-                <div class="gifts_client_info">
-                    <div class="gifts_client_img">
-                        <img class="user_face" src="/resources/images/users/6.png" alt="img">
-                    </div>
-                    <div class="gifts_client_info_txt">
-                        <h4>Thomas Stary</h4>
-                        <h5>thomas.stary@name.com</h5>
-                        <p>
-                            <img src="/resources/images/icons/map-marker.png" alt="icon">
-                            Lorem Ipsum - Creative Director
-                            <br/>
-                            New York, NY
-                        </p>
-                    </div>
-                </div>
-                <div class="gifts_client_txt">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper eu viverra amet, habitant lacinia ipsum sit dolor. Nunc cras enim congue odio augue mattis massa mauris. Mauris mauris vel in faucibus aliquam dui lectus adipiscing erat. Interdum non quam nibh mi tristique. Ut consectetur nibh vivamus ultrices turpis elit at enim.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-        <div class="gifts_area">
-            <div class="gifts_activity_area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="gifts_activity_info">
-                                <div class="gifts_activity_status active"></div>
-                                <ul>
-                                    <li>6:20 AM EDT, APRIL 14, 2020</li>
-                                    <li>TRACKING #: &nbsp; <b class="has_border">8547693521489</b></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="gifts_activity_btns">
-                                <button type="button" class="btn messaged_btn">MESSAGED</button>
-                                <button type="button" class="btn ressaged_btn">REDEEMED</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="gifts_client_area">
-                <div class="client_gifts_img">
-                    <img src="/resources/images/products/1.png" alt="img">
-                </div>
-                <div class="gifts_client_info">
-                    <div class="gifts_client_img">
-                        <img class="user_face" src="/resources/images/users/6.png" alt="img">
-                    </div>
-                    <div class="gifts_client_info_txt">
-                        <h4>Thomas Stary</h4>
-                        <h5>thomas.stary@name.com</h5>
-                        <p>
-                            <img src="/resources/images/icons/map-marker.png" alt="icon">
-                            Lorem Ipsum - Creative Director
-                            <br/>
-                            New York, NY
-                        </p>
-                    </div>
-                </div>
-                <div class="gifts_client_txt">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper eu viverra amet, habitant lacinia ipsum sit dolor. Nunc cras enim congue odio augue mattis massa mauris. Mauris mauris vel in faucibus aliquam dui lectus adipiscing erat. Interdum non quam nibh mi tristique. Ut consectetur nibh vivamus ultrices turpis elit at enim.
-                    </p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <% include ../partials/footer.ejs %>

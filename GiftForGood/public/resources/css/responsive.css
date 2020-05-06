@@ -12,9 +12,6 @@
       .step_buttons_area ul li {
             padding-left: 30px;
       }
-
-
-
 }
 @media only screen and (max-width: 991px), only screen and (max-device-width: 991px) {
       .container-fluid {
@@ -29,9 +26,6 @@
             flex: 0 0 50%;
             max-width: 50%;
       }
-
-
-
 }
 @media only screen and (max-width: 768px), only screen and (max-device-width: 768px) {
 
@@ -90,7 +84,7 @@
             width: 100px;
       }
       .step_buttons_area ul li {
-            padding-left: 18px;
+            padding-left: 10px;
       }
       .GoBack_link {
             text-align: center;
@@ -629,13 +623,9 @@
       .product_details_btn_area {
             padding-bottom: 10px;
         }
-
-
-
-
-
-
-
+      .common_btn {
+            width: 80px;
+      }
 }
 @media only screen and (max-width: 320px), only screen and (max-device-width: 320px) {
       .product_title h4 {
@@ -695,10 +685,32 @@
       .site_details_footer {
             padding-top: 0px;
       }
+}
 
+@media (max-width: 992px) {
+      .navbar-expand-lg .navbar-nav .dropdown-menu {
+            position: absolute;
+      }
+}
 
+@media (max-width: 768px) {
+      .navbar-expand-lg .navbar-nav .dropdown-menu-right {
+            right: -170px;
+      }
+}
 
+@media (max-width: 440px) {
+      .logo_main img {
+            max-width: 80px;
+      }
 
-
-
+      .getintouch_btn, .backstep_btn {
+            width: 125px;
+            height: 50px;
+            background: #C8B398;
+            font-size: 13px;
+      }
+      .navbar-expand-lg .navbar-nav .dropdown-menu-right {
+            right: -150px;
+      }
 }

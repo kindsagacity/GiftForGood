@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-6 choose_template">
 
-                    <div class="btn-group">
+                    <div class="btn-group" style="display: none;">
                         <button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Choose a template <img src="/resources/images/icons/arrow-down-2.png"/>
                         </button>
@@ -151,17 +151,7 @@
                         </li>
                         <li class="preview_list">
                             <div class="preview_here">
-                                <a>Preview Here</a>
-                                <div class="preview_hover_view">
-                                    <p class="mobile_none">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque aleget aenean commodo suspendisse in pharetra sed. Tortor lobortis eleifend mauris sed ultrices. Blandit sed tortor volutpat urna, et eget. In lacinia imperdiet integer cras vulputate nisl. Tortor lobortis eleifend mauris sed ultrices.
-                                    </p>
-                                    <h5 class="mobile_none">Scelerisque aleget aenean.</h5>
-                                    <p class="desktop_none">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque aleget aenean commodo suspendisse in pharetra sed. Tortor lobortis eleifend mauris sed ultrices. Blandit sed tortor.
-                                    </p>
-                                    <h5 class="desktop_none"><span>Show more</span></h5>
-                                </div>
+                                <a href="http://159.65.181.178/resources/videos/default.mp4" target="_blank">Preview Here</a>
                             </div>
                         </li>
                     </ul>
@@ -259,12 +249,18 @@
 <% include ../partials/foot.ejs %>
 
 <script>
-    const gift = <%- JSON.stringify(gift) %>
-    console.log(gift);
+    let gift = <%- JSON.stringify(gift) %>
 
 	$('.backstep_btn').on('click', function() {
 		window.location.href = '/step2?gid=' + gift['_id'];
 	});
+
+	$('#complete-collection').on('click', function() {
+        if (gift && gift['_id']) {
+            window.location.href = '/step2?gid=' + gift['_id'];
+        }
+    });
+
     $('.nextstep_btn').on('click', function() {
     	const email_message = $('#email-message').val();
         $.ajax({
@@ -273,12 +269,11 @@
             data: {
                 gid: gift['_id'],
                 email_message: email_message,
-                email_video: '',
-                email_logo: '',
-                email_banner: ''
+                email_video: gift['email_video'],
+                email_logo: gift['email_logo'],
+                email_banner: gift['email_banner']
             },
             success: function (res) {
-                console.log(res);
                 window.location.href = '/step4?gid=' + gift['_id'];
             },
             error: function (jqXHR, exception) {
@@ -289,12 +284,32 @@
     });
 
     $('#email-video-file').on("change", function(evt) {
-        var $source = $('#email-video-src');
-        $source[0].src = URL.createObjectURL(this.files[0]);
-        $(this).hide();
-        $('#email-video-drag-content').hide();
-        $('#email-video-section').show();
-        $source.parent()[0].load();
+    	if (!evt.target.files.length) {
+    		return;
+        }
+    	let formData = new FormData();
+    	formData.append('file', evt.target.files[0]);
+    	let thisObj = $(this);
+    	$.ajax({
+            url: '/upload-file',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+            	gift['email_video'] = res.file_link;
+                let $source = $('#email-video-src');
+                $source[0].src = URL.createObjectURL(evt.target.files[0]);
+                thisObj.hide();
+                $('#email-video-drag-content').hide();
+                $('#email-video-section').show();
+                $source.parent()[0].load();
+            },
+            error: function (e) {
+            	console.log(e);
+            	alert('Video upload failed');
+            }
+        })
     });
     $('#email-video-cancel').on('click', function() {
         $('#email-video-drag-content').show();
@@ -304,28 +319,70 @@
     });
 
     $('#email-logo-file').on("change", function(evt) {
-        var $source = $('#email-logo-img');
-        $source[0].src = URL.createObjectURL(this.files[0]);
-        $(this).hide();
-        $('#email-logo-drag-content').hide();
-        $('#email-logo-section').show();
+        if (!evt.target.files.length) {
+            return;
+        }
+        let formData = new FormData();
+        formData.append('file', evt.target.files[0]);
+        let thisObj = $(this);
+        $.ajax({
+            url: '/upload-file',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+                gift['email_logo'] = res.file_link;
+                let $source = $('#email-logo-img');
+                $source[0].src = URL.createObjectURL(evt.target.files[0]);
+                thisObj.hide();
+                $('#email-logo-drag-content').hide();
+                $('#email-logo-section').show();
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Logo upload failed');
+            }
+        });
     });
 
     $('#email-banner-file').on("change", function(evt) {
-    	const filename = evt.target.files[0].name;
-        $(this).hide();
-        $('#email-banner-drag-content').hide();
-        $('#email-banner-section').show();
-        if (filename.endsWith('.png')) {
-            var $source = $('#email-banner-img');
-            $source[0].src = URL.createObjectURL(this.files[0]);
-            $('#email-banner-section > video').hide();
-        } else {
-            var $source = $('#email-banner-video-src');
-            $source[0].src = URL.createObjectURL(this.files[0]);
-            $source.parent()[0].load();
-            $('#email-banner-section > img').hide();
+        if (!evt.target.files.length) {
+            return;
         }
+        let formData = new FormData();
+        formData.append('file', evt.target.files[0]);
+        let thisObj = $(this);
+        $.ajax({
+            url: '/upload-file',
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+                gift['email_banner'] = res.file_link;
+                const filename = evt.target.files[0].name;
+                const mimetype = evt.target.files[0].type;
+
+                $(this).hide();
+                $('#email-banner-drag-content').hide();
+                $('#email-banner-section').show();
+                if (mimetype.startsWith('image')) {
+                    let $source = $('#email-banner-img');
+                    $source[0].src = URL.createObjectURL(evt.target.files[0]);
+                    $('#email-banner-section > video').hide();
+                } else if (mimetype.startsWith('video')) {
+                    let $source = $('#email-banner-video-src');
+                    $source[0].src = URL.createObjectURL(evt.target.files[0]);
+                    $source.parent()[0].load();
+                    $('#email-banner-section > img').hide();
+                }
+            },
+            error: function (e) {
+                console.log(e);
+                alert('Banner upload failed');
+            }
+        });
     });
 </script>
 

@@ -43,5 +43,14 @@
 <% include ../partials/footer.ejs %>
 <% include ../partials/foot.ejs %>
 
+<script type="text/javascript">
+    let gift = <%- JSON.stringify(gift) %>
+
+	$('#complete-collection').on('click', function() {
+		if (gift && gift['_id']) {
+			window.location.href = '/step2?gid=' + gift['_id'];
+		}
+	});
+</script>
 </body>
 </html>

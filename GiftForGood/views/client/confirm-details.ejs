@@ -146,6 +146,12 @@
 		window.location.href = '/step3?gid=' + gift['_id'];
 	});
 
+    $('#complete-collection').on('click', function() {
+        if (gift && gift['_id']) {
+            window.location.href = '/step2?gid=' + gift['_id'];
+        }
+    });
+
 	$('#send-gift').on('click', function() {
         $.ajax({
             url: '/step4/send',
@@ -155,7 +161,7 @@
             },
             success: function (res) {
                 console.log(res);
-                window.location.href = '/confirmed';
+                window.location.href = '/confirmed?gid=' + gift['_id'];
             },
             error: function (jqXHR, exception) {
                 console.log(exception);

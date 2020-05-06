@@ -28,20 +28,14 @@
     <div class="container-fluid">
         <% if (page_type === 'gift-step-page') { %>
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand logo_main" href="/"><img src="/resources/images/logo.png" alt="logo"/></a>
+                <a class="navbar-brand logo_main" href="/"><img src="/resources/images/logo.svg" alt="logo"/></a>
 
                 <div class="navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <% if (page_title === 'gift-it-forward') { %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <img src="/resources/images/icons/buy.png" alt="icon"/>
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-flex">
                             <div class="btn-group">
-                                <button type="button" class="btn getintouch_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    GET IN TOUCH
+                                <button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="box-shadow: none;">
+                                    <img src="/resources/images/icons/buy.svg" alt="icon"/>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right get_dropdown">
                                     <div class="dropdown_gift_option">
@@ -54,23 +48,23 @@
                                     </div>
                                     <div class="dropdown_gift_list">
                                         <ul>
-                                            <% for (let i = 0; i < gift.products.length; i++) { %>
+                                            <% for (let i = 0; i < gift._products.length; i++) { %>
                                                 <li>
                                                     <div class="gift_list_img">
                                                         <div class="gift_list_img_box">
-                                                            <img src="<%= gift.products[i]["Image Src"] %>" alt="img"/>
+                                                            <img src="<%= gift._products[i]["Image Src"] %>" alt="img"/>
                                                         </div>
                                                     </div>
                                                     <div class="gift_list_txt">
-                                                        <%= gift.products[i]["Title"] %>
+                                                        <%= gift._products[i]["Title"] %>
                                                     </div>
-                                                    <div class="gift_list_number">1</div>
+                                                    <div class="gift_list_number">$ <%= (Math.round(gift._products[i]["Variant Price"] * 100) / 100).toFixed(2) %></div>
                                                 </li>
                                             <% } %>
                                         </ul>
                                     </div>
                                     <div class="dropdown_gift_btn">
-                                        <button type="button" class="btn complete-collection">COMPLETE THE COLLETION</button>
+                                        <button type="button" class="btn complete-collection" id="complete-collection">COMPLETE THE COLLETION</button>
                                     </div>
                                     <div class="dropdown_gift_footer">
                                         Great! You already have <b>free shipping</b>.
@@ -78,7 +72,7 @@
                                 </div>
                             </div>
                         </li>
-                        <% } else if (page_title !== 'confirmed-order') {
+                        <% if (page_title !== 'confirmed-order' && page_title !== 'gift-it-forward') {
                         	var caption = page_title === 'recipient-information' ? 'BACK TO STEP 1'
                                         : page_title === 'brand-message' ? 'BACK TO STEP 2'
                                         : page_title === 'confirm-details' ? 'BACK TO STEP 3'
@@ -98,11 +92,11 @@
         <% } else if (page_title === 'collections') { %>
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand google_logo" href="#"><img src="/resources/images/google.png" alt="Google logo"/></a>
-                <a class="navbar-brand logo_main" href="/"><img src="/resources/images/logo.png" alt="logo"/></a>
+                <a class="navbar-brand logo_main" href="/"><img src="/resources/images/logo.svg" alt="logo"/></a>
             </nav>
         <% } else if (page_title === 'single-product' || page_title === 'product-detail') { %>
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand logo_main" href="/"><img src="/resources/images/logo.png" alt="logo"/></a>
+                <a class="navbar-brand logo_main" href="/"><img src="/resources/images/logo.svg" alt="logo"/></a>
                 <div class="navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">

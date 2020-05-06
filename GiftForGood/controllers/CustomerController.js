@@ -118,7 +118,8 @@ module.exports = BaseController.extend({
                     rec_state: state,
                     rec_zip_code: zip_code,
                     rec_email: email,
-                    rec_phone: phone
+                    rec_phone: phone,
+                    step: 'redeemed'
                 });
                 return res.send({
                     status: 'success'

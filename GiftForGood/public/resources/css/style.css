@@ -104,6 +104,8 @@ a:hover, a:focus{
 	padding: 25px 60px 25px 87px;
 	min-height: 93px;
 	background-color: #FCFCFC;
+	display: flex;
+	align-items: center;
 }
 
 .dropdown_gift_list ul li:nth-of-type(odd) {
@@ -135,17 +137,17 @@ a:hover, a:focus{
 	font-size: 16px;
 	line-height: 24px;
 	color: #444444;
-	padding-right: 24px;
+	padding: 0px 21px 0px 5px;
 }
 .gift_list_number{
 	position: absolute;
-	right: 45px;
+	right: 15px;
 	bottom: 38px;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 20px;
 	color: #000000;
-	text-align: center;
+	text-align: right;
 }
 .dropdown_gift_btn{
 	padding: 34px 26px 23px;
@@ -311,7 +313,7 @@ Custome Select
 	position: absolute;
 	content: "";
 	top: 33px;
-	right: 30px;
+	right: 22px;
 	width: 19px;
 	height: 10px;
 	background: url(../images/icons/arrow-down.png) center center no-repeat;
@@ -2199,15 +2201,81 @@ Custome Select
 	color: #fff !important;
 }
 
+/*************end*************/
 
+/************* Message modal *************/
+.message-modal .message-section {
+	display: flex;
+	padding: 15px;
+}
 
+.message-modal .message-section img {
+	width: 80px;
+	height: 80px;
+}
 
+.message-modal .message-section span {
+	font-size: 1.6rem;
+	text-align: center;
+	padding: 10px;
+}
 
+.message-modal .close {
+	position: absolute;
+	top: -35px;
+	right: 0px;
+	box-shadow: none;
+	opacity: 1;
+	color: #fff;
+	font-size: 32px;
+}
 
+.message-modal .confirm-btn-group {
+	text-align: center;
+	padding: 7px;
+}
 
+.message-modal .confirm-btn-group button {
+	width: 130px;
+	height: 45px;
+	padding: 8px;
+}
 
+.input-modal .input-section {
+	display: flex;
+	padding: 25px 15px;
+}
 
+.input-modal .input-section .row {
+	font-size: 1.1rem;
+	padding-left: 40px;
+	padding-right: 30px;
+}
 
+.input-modal .input-section img {
+	width: 80px;
+	height: 80px;
+}
 
+.input-modal .close {
+	position: absolute;
+	top: -35px;
+	right: 0px;
+	box-shadow: none;
+	opacity: 1;
+	color: #fff;
+	font-size: 32px;
+}
+
+.input-modal .confirm-btn-group {
+	text-align: center;
+	padding: 7px;
+}
+
+.input-modal .confirm-btn-group button {
+	width: 130px;
+	height: 45px;
+	padding: 8px;
+}
 
 /*************end*************/

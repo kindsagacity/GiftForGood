@@ -21,7 +21,7 @@ let ClientModel = require('../models/ClientModel');
 module.exports = BaseController.extend({
     name: 'AuthController',
     login: async function (req, res, next) {
-        const redirect_url = req.query.redirect || '/gifts';
+        const redirect_url = req.query.redirect || '/';
         if (req.session.login === 1) return res.redirect(redirect_url);
         let v = new View(res, 'client/client-login');
         v.render({

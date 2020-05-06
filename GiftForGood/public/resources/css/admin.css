@@ -381,7 +381,8 @@
 .admin_collection_item h5{
 	font-size: 16px;
 	line-height: 19px;
-	color: #7B7B7B;
+	/*color: #7B7B7B;*/
+	color: black;
 	padding-top: 30px;
 	font-weight: 600;
 }
@@ -772,8 +773,38 @@
 	font-size: 14px;
 	line-height: 16px;
 	padding-bottom: 12px;
-  }
+}
+.addUser_modal .user-image-area {
+	width: 160px;
+	height: 160px;
+	display: flex;
+	align-items: center;
+	margin: auto;
+}
+.addUser_modal .user-image-area img {
+	width: 160px;
+	height: 160px;
+	border-radius: 50%;
+	border: 1px solid #DBDBDB;
+}
 
+.addUser_modal .user-image-select-area {
+	width: 160px;
+	height: 160px;
+	position: absolute;
+	top: 20px;
+	left: calc(50% - 80px);
+}
+.addUser_modal .user-image-select-area input[type='file'] {
+	opacity: 0;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+}
+.addUser_modal .user-avatar-section label {
+	width: 100%;
+	text-align: center;
+}
 
 
 
