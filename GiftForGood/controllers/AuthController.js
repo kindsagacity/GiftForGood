@@ -82,7 +82,7 @@ module.exports = BaseController.extend({
         req.session.save();
         return res.send({
             status: 'success',
-            message: res.cookie().__('Logout Success')
+            msg: res.cookie().__('Logout Success')
         });
     },
 
@@ -93,7 +93,7 @@ module.exports = BaseController.extend({
             res.status(400);
             return res.send({
                 status: 'failed',
-                message: res.cookie().__('Login information is not valid')
+                msg: res.cookie().__('Login information is not valid')
             });
         }
         let user = await ClientModel.findOne({ email: email });
@@ -101,30 +101,31 @@ module.exports = BaseController.extend({
             res.status(400);
             return res.send({
                 status: 'failed',
-                message: res.cookie().__('Unknown user')
+                msg: res.cookie().__('Unknown user')
             });
         }
         if (user.email_verify_flag !== 2) {
             res.status(400);
             return res.send({
                 status: 'failed',
-                message: res.cookie().__('Verify your email')
+                msg: res.cookie().__('Verify your email')
             });
         }
         if (!user.verifyPassword(password)) {
             res.status(400);
             return res.send({
                 status: 'failed',
-                message: res.cookie().__('Password is not correct')
+                msg: res.cookie().__('Password is not correct')
             });
         }
 
+        await user.updateOne({ last_signin_at: new Date() });
         req.session.user = user;
         req.session.login = 1;
         let token = jwt.sign({ login_email: email }, config.jwt_secret, { expiresIn: '240h' });
         return res.send({
             status: 'success',
-            message: res.cookie().__('Login success'),
+            msg: res.cookie().__('Login success'),
             token: token
         });
     },
@@ -236,22 +237,22 @@ module.exports = BaseController.extend({
             transporter.sendMail(mailOpts, async (err, info) => {
                 if (err) {
                     console.log('[' + new Date() + ']', "MAIL SENDING ERROR", err);
-                    return res.send({status: 'error', message: 'Failed sending message to your email'});
+                    return res.send({status: 'error', msg: 'Failed sending message to your email'});
                 }
                 console.log('[' + new Date() + '] Mail sending success ', JSON.stringify(info));
                 await user.updateOne({reset_flag: 1, reset_token: forgot_token});
-                return res.send({status: 'success', message: res.cookie().__('Please check your email')});
+                return res.send({status: 'success', msg: res.cookie().__('Please check your email')});
             });
         });
     },
 
     postResetPassword: async function (req, res, next) {
-        if (!req.session.user) return res.send({status: 'error', message: res.cookie().__('Unknown user')});
+        if (!req.session.user) return res.send({status: 'error', msg: res.cookie().__('Unknown user')});
         let user = await ClientModel.findOne({id: req.session.user.id});
-        if (!user) return res.send({status: 'error', message: res.cookie().__('Unknown user')});
+        if (!user) return res.send({status: 'error', msg: res.cookie().__('Unknown user')});
         user.password = req.body.new_password;
         await user.save();
-        return res.send({status: 'success', message: res.cookie().__('Updated password successfully')});
+        return res.send({status: 'success', msg: res.cookie().__('Updated password successfully')});
     },
 
     verify_email: async function (req, res, next) {
@@ -275,7 +276,7 @@ module.exports = BaseController.extend({
     postVerifyEmail: async function (req, res, next) {
         let verify_email = req.body.verify_email;
         let user = await ClientModel.findOne({email: verify_email});
-        if (!user) return res.send({status: 'error', message: res.cookie().__('Unknown user')});
+        if (!user) return res.send({status: 'error', msg: res.cookie().__('Unknown user')});
         let email_token_str = "ecat" + Date.now().toString() + (Math.random() * 101).toString() + 'email';
         let email_verify_token = crypto.createHash('md5').update(email_token_str).digest('hex');
 
@@ -289,7 +290,7 @@ module.exports = BaseController.extend({
         ejs.renderFile(template, templateData, (err, html) => {
             if (err) {
                 console.log('[' + new Date() + ']', "EMAIL TEMPLATE RENDER ERROR", err);
-                return res.send({status: 'fail', message: res.cookie().__('html rendering failed')});
+                return res.send({status: 'fail', msg: res.cookie().__('html rendering failed')});
             }
             let mailOpts = {
                 from: 'MTAssist Manager',
@@ -300,11 +301,11 @@ module.exports = BaseController.extend({
             transporter.sendMail(mailOpts, async (err, info) => {
                 if (err) {
                     console.log('[' + new Date() + ']', "MAIL SENDING ERROR", err);
-                    return res.send({status: 'fail', message: res.cookie().__('Email sending failed')});
+                    return res.send({status: 'fail', msg: res.cookie().__('Email sending failed')});
                 }
                 console.log('[' + new Date() + '] Mail sending success ', JSON.stringify(info));
                 await user.updateOne({email_verify_flag: 1, email_verify_token: email_verify_token});
-                return res.send({status: 'success', message: res.cookie().__('Please check your email verification')});
+                return res.send({status: 'success', msg: res.cookie().__('Please check your email verification')});
             });
         });
     }

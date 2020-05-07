@@ -66,6 +66,21 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="choose_file_box">
+                        <div class="csv-content-area" style="display: none;">
+                            <div class="csv-content-section">
+                                <table class="table table-bordered table-hover" id="csv-content-table">
+                                    <thead>
+                                    <th>No</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Company</th>
+                                    <th>Email</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <div class="drag_area">
                             <div class="drag_area_content">
                                 <img src="/resources/images/icons/drag-file.png"/>
@@ -74,14 +89,16 @@
                                 <p>(maximum number of rows per file is 1,000)</p>
                             </div>
                             <div class="drag_choose_field">
-                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                <input type="file" class="form-control-file" id="contact-csv-file">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="csv_btn">
-                        <button type="button" class="btn">Download Example CSV</button>
+                        <a href="http://159.65.181.178/resources/csv/contact_template.csv">
+                            <button type="button" class="btn">Download Example CSV</button>
+                        </a>
                     </div>
                 </div>
                 <div class="col-6">
@@ -132,35 +149,28 @@
                 <div class="col-md-12">
                     <div class="information_form">
                         <div class="row">
-                            <%
-                                var first_name = gift['rec_first_name'] || '';
-                                var last_name = gift['rec_last_name'] || '';
-                                var company_name = gift['rec_company_name'] || '';
-                                var email = gift['rec_email'] || '';
-                            %>
-
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="first-name">FIRST NAME(*)</label>
-                                    <input type="text" class="form-control" id="first-name" placeholder="" value="<%= first_name %>">
+                                    <input type="text" class="form-control" id="first-name">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="last-name">LAST NAME(*)</label>
-                                    <input type="text" class="form-control" id="last-name" placeholder="" value="<%= last_name %>">
+                                    <input type="text" class="form-control" id="last-name">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="company-name">COMPANY NAME(*)</label>
-                                    <input type="text" class="form-control" id="company-name" placeholder="" value="<%= company_name %>">
+                                    <input type="text" class="form-control" id="company-name">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="email">EMAIL ADDRESS(*)</label>
-                                    <input type="email" class="form-control" id="email" placeholder="" value="<%= email %>">
+                                    <input type="email" class="form-control" id="email">
                                 </div>
                             </div>
                         </div>
@@ -176,8 +186,8 @@
                 <div class="col-md-6">
                     <div class="step_buttons_area">
                         <ul>
-                            <li style="display: none;">
-                                <a href="#"><img src="/resources/images/icons/add-small.png"/> <span>ADD SECOND CONTACT</span></a>
+                            <li>
+                                <a id="add-second-contact" style="cursor: pointer;"><img src="/resources/images/icons/add-small.png"/> <span>ADD CONTACT</span></a>
                             </li>
                             <li>
                                 <button type="button" class="btn common_btn nextstep_btn">NEXT</button>
@@ -208,25 +218,44 @@
 
 <script>
     let gift = <%- JSON.stringify(gift) %>
+    let contact_list = [];
+
+    if (gift['_products'].length) {
+        $('#cart-badge').show();
+        $('#cart-badge').html(gift['_products'].length);
+    } else {
+        $('#cart-badge').hide();
+    }
 
     $('.backstep_btn').on('click', function() {
         window.location.href = '/step1?gid=' + gift['_id'];
     });
+
+    function get_manually_inputted_contact_list() {
+        contact_list = [];
+        $('.information_form_area .information_form div.row').each(function() {
+            const first_name = $(this).find('#first-name').val();
+            const last_name = $(this).find('#last-name').val();
+            const company_name = $(this).find('#company-name').val();
+            const email = $(this).find('#email').val();
+            contact_list.push({ first_name, last_name, company_name, email });
+        });
+    }
+
     $('.nextstep_btn').on('click', function() {
-    	const first_name = $('#first-name').val();
-    	const last_name = $('#last-name').val();
-    	const company_name = $('#company-name').val();
-    	const email = $('#email').val();
-    	if (first_name && last_name && company_name && email) {
+        if ($('.step_2_area').hasClass('information_form_open')) {
+            get_manually_inputted_contact_list();
+        } else if ($('.step_2_area').hasClass('information_contact_open')) {
+
+        }
+
+    	if (contact_list.length) {
             $.ajax({
                 url: '/step2/add-information',
                 method: 'post',
                 data: {
                 	gid: gift['_id'],
-                    first_name: first_name,
-                    last_name: last_name,
-                    company_name: company_name,
-                    email: email
+                    contacts: contact_list
                 },
                 success: function (res) {
                     console.log(res);
@@ -237,13 +266,90 @@
                     alert('Invalid operation');
                 }
             });
+        } else if (gift['contacts'].length) {
+            window.location.href = '/step3?gid=' + gift['_id'];
         } else {
-    		alert('Please input all');
+    		alert('Please input exact contact information');
         }
     });
     $('.GoBack_link > a').on('click', function() {
         $('.step_2_area').removeClass('information_contact_open');
         $('.step_2_area').removeClass('information_form_open');
+    })
+
+    $('#add-second-contact').on('click', function () {
+        let html = '<div class="form_devider"></div><div class="row">\n' +
+            '                            <div class="col-md-4">\n' +
+            '                                <div class="form-group">\n' +
+            '                                    <label for="first-name">FIRST NAME(*)</label>\n' +
+            '                                    <input type="text" class="form-control" id="first-name">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                            <div class="col-md-4">\n' +
+            '                                <div class="form-group">\n' +
+            '                                    <label for="last-name">LAST NAME(*)</label>\n' +
+            '                                    <input type="text" class="form-control" id="last-name">' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                            <div class="col-md-4">\n' +
+            '                                <div class="form-group">\n' +
+            '                                    <label for="company-name">COMPANY NAME(*)</label>\n' +
+            '                                    <input type="text" class="form-control" id="company-name">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                            <div class="col-md-12">\n' +
+            '                                <div class="form-group">\n' +
+            '                                    <label for="email">EMAIL ADDRESS(*)</label>\n' +
+            '                                    <input type="email" class="form-control" id="email">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>';
+            $('.information_form').append(html);
+    })
+
+    // When upload with csv file
+    $('#contact-csv-file').on('change', function(evt) {
+        if (!evt.target.files.length) {
+            return;
+        }
+        let reader = new FileReader();
+        reader.onload = function () {
+            $('.csv-content-area').css('display', 'block');
+            $('.drag_area').css('display', 'none');
+
+            const record_num = 4;
+            const allTextLines = reader.result.split(/\r\n|\n|\r/);
+
+            console.log(reader.result);
+            console.log(allTextLines);
+
+            let html = '';
+            contact_list = [];
+            // Except header lines
+            for (let i = 1; i < allTextLines.length; i++) {
+                const data = allTextLines[i].split(',');
+                if (data.length === record_num) {
+                    const first_name = data[0];
+                    const last_name = data[1];
+                    const company_name = data[2];
+                    const email = data[3];
+                    if (!first_name || !last_name || !company_name || !email) {
+                        continue;
+                    }
+                    contact_list.push({ first_name, last_name, company_name, email });
+                    html += '<tr><td>' + i + '</td>'
+                        + '<td>' + first_name + '</td>'
+                        + '<td>' + last_name + '</td>'
+                        + '<td>' + company_name + '</td>'
+                        + '<td>' + email + '</td>'
+                        + '</tr>';
+                }
+            }
+            if (html) {
+                $('.csv-content-section #csv-content-table > tbody').append(html);
+            }
+        }
+        reader.readAsBinaryString(evt.target.files[0]);
     })
 
 </script>

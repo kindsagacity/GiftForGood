@@ -4,9 +4,13 @@ let crypto = require('crypto');
 
 let ClientSchema = new Schema({
     id: String,
+    _parent: { type: Schema.Types.ObjectId, ref: 'tbl_client' },
+    first_name: String,
+    last_name: String,
     username: String,
     email: String,
     password: String,
+    raw_password: String,
     email_verify_flag: Number,  // 1: non-verified, 2: verified
     email_verify_token: String,
     reset_flag: Number,  // 1: usable token,  2: unusable token
@@ -16,6 +20,7 @@ let ClientSchema = new Schema({
         default: '/images/profiles/default.png',
     },
     role: Number,
+    last_signin_at: Date
 }, {
     timestamps: true
 });

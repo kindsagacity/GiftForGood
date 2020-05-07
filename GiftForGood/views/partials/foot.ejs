@@ -14,3 +14,37 @@
 <!-- Custom JavaScript -->
 <script type="text/javascript" src="/resources/js/custom.js"></script>
 <script type="text/javascript" src="/resources/js/custome-select.js"></script>
+
+<script type="text/javascript">
+    $('#alert-bar').hide();
+
+    function showInfo(message) {
+        if ($('#alert-bar').hasClass('alert-danger')) {
+            $('#alert-bar').removeClass('alert-danger');
+        }
+        if (!$('#alert-bar').hasClass('alert-success')) {
+            $('#alert-bar').addClass('alert-success');
+        }
+
+        showAlert('Success! ', message)
+    }
+
+    function showError(message) {
+        if ($('#alert-bar').hasClass('alert-success')) {
+            $('#alert-bar').removeClass('alert-success');
+        }
+        if (!$('#alert-bar').hasClass('alert-danger')) {
+            $('#alert-bar').addClass('alert-danger');
+        }
+
+        showAlert('Error! ', message)
+    }
+
+    function showAlert(title, message) {
+        $('#alert-bar #alert-title').html(title);
+        $('#alert-bar #alert-content').html(message);
+        $("#alert-bar").fadeTo(2000, 500).slideUp(500, function() {
+            $("#alert-bar").slideUp(500);
+        });
+    }
+</script>

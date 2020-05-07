@@ -11,7 +11,7 @@
 
     <div class="admin_main">
 
-        <div class="alert alert-dismissible fade show signed_alart" role="alert">
+        <div class="alert alert-dismissible fade show signed_alart d-none" role="alert">
             <img src="/resources/images/icons/green-tic.png" alt="img"/>
             Signed in successfully.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -53,16 +53,13 @@
                             <%= users[i]['email'] %>
                         </td>
                         <td class="users_info" style="width: 200px;">
-                            <img src="/resources/images/icons/user.png" alt="icon" /> <%= users[i]['job'] %>
+                            <img src="/resources/images/icons/pass-lock.png" alt="icon" /> <%= users[i]['raw_password'] %>
                         </td>
-                        <td class="users_info" style="width: 200px;">
-                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> <%= users[i]['address'] %>
-                        </td>
-                        <td class="users_info" style="width: 150px; text-align: right;">
-                            Last sign in date: <b>05/06/2020</b>
+                        <td class="users_info" style="width: 150px;">
+<!--                            Last sign in date: <b>05/06/2020</b>-->
+                            Last sign in date: <b><%= users[i]['last_signin_at'] ? moment(users[i]['last_signin_at']).format('MM/DD/YYYY') : '00/00/0000' %></b>
                         </td>
                     </tr>
-
                 </table>
             </div>
             <% } %>
@@ -77,7 +74,6 @@
 <% include ../partials/foot.ejs %>
 
 <!-- Modal -->
-
 <div class="modal fade addUser_modal" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -116,21 +112,6 @@
                     <div class="form_devider"></div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label>ADDRESS</label>
-                                <input type="text" class="form-control" id="address" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>JOB</label>
-                                <input type="text" class="form-control" id="job" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form_devider"></div>
-                    <div class="row">
-                        <div class="col-md-6">
                             <div class="form-group email_address">
                                 <label>EMAIL ADDRESS</label>
                                 <input type="email" class="form-control" id="email" placeholder="">
@@ -138,8 +119,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group phone_number">
-                                <label>PHONE NUMBER</label>
-                                <input type="text" class="form-control" id="phone" placeholder="">
+                                <label>PASSWORD</label>
+                                <input type="password" class="form-control" id="password" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -154,14 +135,15 @@
 
 <script type="text/javascript">
     let users = <%- JSON.stringify(users) %>
+
+    console.log(users);
+
     let avatar_link = 'http://159.65.181.178/resources/images/users/default.png';
     $('#add-user').on('click', function () {
         const first_name = $('#first-name').val();
         const last_name = $('#last-name').val();
-        const address = $('#address').val();
-        const job = $('#job').val();
         const email = $('#email').val();
-        const phone = $('#phone').val();
+        const password = $('#password').val();
 
         $('#add-user-modal').modal('hide');
 
@@ -169,15 +151,13 @@
             url: '/users/add',
             type: 'post',
             data: {
-                avatar: avatar_link, first_name, last_name, address, job, email, phone
+                avatar: avatar_link, first_name, last_name, email, password
             },
             success: function (res) {
                 $('#first-name').val('');
                 $('#last-name').val('');
-                $('#address').val('');
-                $('#job').val('');
                 $('#email').val('');
-                $('#phone').val('');
+                $('#password').val('');
                 let $source = $('#user-avatar-img');
                 $source[0].src = 'http://159.65.181.178/resources/images/users/default.png';
 
@@ -197,22 +177,23 @@
                     '                        <td class="users_info">\n' + res.data['email'] +
                     '                        </td>\n' +
                     '                        <td class="users_info">\n' +
-                    '                            <img src="/resources/images/icons/user.png" alt="icon" /> ' + res.data['job'] +
+                    '                            <img src="/resources/images/icons/pass-lock.png" alt="icon" /> ' + res.data['raw_password'] +
                     '                        </td>\n' +
                     '                        <td class="users_info">\n' +
-                    '                            <img src="/resources/images/icons/map-marker.png" alt="icon" /> ' + res.data['address'] +
-                    '                        </td>\n' +
-                    '                        <td class="users_info">\n' +
-                    '                            Last sign in date: <b>05/06/2020</b>\n' +
+                    '                            Last sign in date: <b>' + getUSFormatDateString(res.data['last_signin_at']) + '</b>\n' +
                     '                        </td>\n' +
                     '                    </tr>\n' +
                     '\n' +
                     '                </table>\n' +
                     '            </div>';
                 $('.users_area').append(html);
+                showInfo('New user has been added');
             },
             error: function (err) {
-                console.log(err);
+                const { status, msg } = err.responseJSON;
+                if (status === 'failed') {
+                    showError(msg);
+                }
             }
         });
     });
@@ -237,10 +218,19 @@
             },
             error: function (e) {
                 console.log(e);
-                alert('File upload failed');
+                showError('File upload failed');
             }
         })
     });
+
+    function getUSFormatDateString(date) {
+        if (date) {
+            return moment(date).format('MM/DD/YYYY');
+        } else {
+            return '00/00/0000';
+        }
+    }
+
 </script>
 
 </body>

@@ -4,6 +4,10 @@
 
 <body>
 
+<div class="alert alert-bar alert-success text-center" id="alert-bar">
+    <strong id="alert-title"></strong> <span id="alert-content"></span>
+</div>
+
 <div class="login_logo">
     <a href="#"><img src="/resources/images/logo-2.png" alt="logo"/></a>
 </div>
@@ -86,20 +90,23 @@
         const password = $('#password').val();
         const confirm_password = $('#confirm-password').val();
         if (!first_name || !last_name || !email || !password) {
-        	alert('Please input all information');
+        	showError('Please input all information');
         } else if (password !== confirm_password) {
-          	alert('Password confirmation failed');
+          	showError('Password confirmation failed');
         } else {
         	$.ajax({
                 url: '/register',
                 type: 'post',
                 data: { first_name, last_name, email, password },
                 success: function (res) {
-                	window.location.href = '/';
+                    showInfo('Registered successfully');
+                    setTimeout(() => { window.location.href = '/'; }, 2500);
                 },
-                error: function (jqXHR, exception) {
-                	console.log(exception);
-                	alert('Invalid input');
+                error: function (err) {
+                    const { status, msg } = err.responseJSON;
+                    if (status === 'failed') {
+                        showError(msg);
+                    }
                 }
             });
         }

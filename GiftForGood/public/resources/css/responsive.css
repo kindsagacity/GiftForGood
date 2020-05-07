@@ -711,6 +711,12 @@
             font-size: 13px;
       }
       .navbar-expand-lg .navbar-nav .dropdown-menu-right {
-            right: -150px;
+            right: -138px;
+            margin-top: 5px;
+      }
+
+      .navbar-nav .nav-item {
+            padding-right: 0;
+            padding-left: 0;
       }
 }

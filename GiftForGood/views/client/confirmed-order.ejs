@@ -46,6 +46,13 @@
 <script type="text/javascript">
     let gift = <%- JSON.stringify(gift) %>
 
+    if (gift['_products'].length) {
+        $('#cart-badge').show();
+        $('#cart-badge').html(gift['_products'].length);
+    } else {
+        $('#cart-badge').hide();
+    }
+
 	$('#complete-collection').on('click', function() {
 		if (gift && gift['_id']) {
 			window.location.href = '/step2?gid=' + gift['_id'];

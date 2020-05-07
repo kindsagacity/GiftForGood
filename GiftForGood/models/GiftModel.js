@@ -5,6 +5,12 @@ let GiftSchema = new Schema({
     _products: [{ type: Schema.Types.ObjectId, ref: 'tbl_product' }],
     _sender: { type: Schema.Types.ObjectId, ref: 'tbl_client' },
     _chosen: { type: Schema.Types.ObjectId, ref: 'tbl_product' },
+    contacts: [{
+        first_name: String,
+        last_name: String,
+        company_name: String,
+        email: String
+    }],
     rec_first_name: String,
     rec_last_name: String,
     rec_company_name: String,

@@ -86,20 +86,22 @@
         </div>
         <div class="your_gift_sent_info">
             <div class="row">
-                <%
-                    var name = gift.rec_first_name + ' ' + gift.rec_last_name;
-                    var email = gift.rec_email;
-                    var email_message = gift.email_message;
-                %>
                 <div class="col-md-5">
+                    <% var email_message = gift.email_message; %>
                     <div class="add_title">
                         <h3>SEND TO</h3>
                     </div>
                     <div class="gift_sent_info_box">
+                        <%
+                            for (let i = 0; i < gift.contacts.length; i++) {
+                                var name = gift.contacts[i].first_name + ' ' + gift.contacts[i].last_name;
+                                var email = gift.contacts[i].email;
+                         %>
                         <div class="gift_sent_info_txt">
                             <h4><%= name %></h4>
                             <h5><%= email %></h5>
                         </div>
+                        <% } %>
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -141,6 +143,13 @@
 
 <script>
     let gift = <%- JSON.stringify(gift) %>
+
+    if (gift['_products'].length) {
+        $('#cart-badge').show();
+        $('#cart-badge').html(gift['_products'].length);
+    } else {
+        $('#cart-badge').hide();
+    }
 
 	$('.backstep_btn').on('click', function() {
 		window.location.href = '/step3?gid=' + gift['_id'];

@@ -1,7 +1,9 @@
 let View = require('../views/base');
 let cheerio = require('cheerio');
+let moment = require('moment');
 
 let BaseController = require('./BaseController');
+let ClientModel = require('../models/ClientModel');
 let CollectionModel = require('../models/CollectionModel');
 let CustomerModel = require('../models/CustomerModel');
 let GiftModel = require('../models/GiftModel');
@@ -67,7 +69,7 @@ module.exports = BaseController.extend({
 
     users: async function (req, res, next) {
         const current_client = req.session.user;
-        const customers = await CustomerModel.find({ _client: current_client['_id'] });
+        const clients = await ClientModel.find({ _parent: current_client['_id'] });
 
         let v = new View(res, 'client/client-users');
         v.render({
@@ -75,25 +77,35 @@ module.exports = BaseController.extend({
             page_type: 'client-dashboard-page',
             session: req.session,
             i18n: res,
-            users: customers
+            users: clients,
+            moment: moment
         });
     },
     add_user: async function (req, res, next) {
         try {
             const current_client = req.session.user;
-            const { avatar, first_name, last_name, address, job, email, phone } = req.body;
-            const new_customer = new CustomerModel({
-                _client: current_client['_id'],
-                avatar: avatar,
-                first_name: first_name,
-                last_name: last_name,
-                address: address,
-                job: job,
-                email: email,
-                phone: phone
-            });
-            await new_customer.save();
-            return res.send({ status: 'success', data: new_customer });
+            const { avatar, first_name, last_name, email, password } = req.body;
+            const existing_client = await ClientModel.findOne({ email: email });
+            if (existing_client) {
+                res.status(400);
+                res.send({ status: 'failed', msg: 'Same email already registered' });
+            } else {
+                const new_client = new ClientModel({
+                    _parent: current_client['_id'],
+                    avatar: avatar,
+                    first_name: first_name,
+                    last_name: last_name,
+                    username: first_name + last_name,
+                    email: email,
+                    password: password,
+                    raw_password: password,
+                    email_verify_flag: 2,
+                    phone_verify_flag: 1,
+                    role: 2,
+                });
+                await new_client.save();
+                return res.send({ status: 'success', data: new_client });
+            }
         } catch (err) {
             console.log(err);
             res.status(400);
@@ -300,14 +312,12 @@ module.exports = BaseController.extend({
         try {
             const current_client = req.session.user;
             const gift_id = req.body.gid;
-            const { first_name, last_name, company_name, email } = req.body;
+            const contacts = req.body.contacts;
+
             let gift = await GiftModel.findOne({ _id: gift_id, _sender: current_client['_id'] });
             if (gift) {
                 await gift.updateOne({
-                    rec_first_name: first_name,
-                    rec_last_name: last_name,
-                    rec_company_name: company_name,
-                    rec_email: email,
+                    contacts: contacts
                 });
                 return res.send({ status: 'success' });
             } else {
@@ -407,27 +417,64 @@ module.exports = BaseController.extend({
         try {
             const current_client = req.session.user;
             const gift_id = req.body.gid;
-            const gift = await GiftModel.findOne({ _id: gift_id, _sender: current_client['_id'] }).populate('_products');
-            if (gift) {
+
+            let gift = await GiftModel.findOne({ _id: gift_id, _sender: current_client['_id'] });
+            if (gift && gift.contacts.length) {
+                let contacts = gift.contacts;
+                await gift.updateOne({
+                    rec_first_name: contacts[0]['first_name'],
+                    rec_last_name: contacts[0]['last_name'],
+                    rec_company_name: contacts[0]['company_name'],
+                    rec_email: contacts[0]['email'],
+                    step: 'opened'
+                });
+                contacts[0]['gift_id'] = gift['_id'];
+
+                // Create gift record for each user to send gift
+                for (let i = 1; i < contacts.length; i++) {
+                    let new_gift = new GiftModel({
+                        _products: gift['_products'],
+                        _sender: gift['_sender'],
+                        rec_first_name: contacts[i]['first_name'],
+                        rec_last_name: contacts[i]['last_name'],
+                        rec_company_name: contacts[i]['company_name'],
+                        rec_email: contacts[i]['email'],
+                        step: 'opened',
+                        email_message: gift['email_message'],
+                        email_video: gift['email_video'],
+                        email_logo: gift['email_logo'],
+                        email_banner: gift['email_banner'],
+                    });
+                    await new_gift.save();
+                    contacts[i]['gift_id'] = new_gift['_id'];
+                }
+
                 sgMail.setApiKey(Config.SENDGRID_API_KEY);
-                const msg = {
-                    to: gift.rec_email,
-                    from: Config.SENDGRID_SENDER_EMAIL,
-                    subject: 'Gift Email from <' + current_client.email + '>',
-                    templateId: 'd-feadacdf21f948e0a784e43c71e596d3',
-                    dynamic_template_data: {
-                        logo_url: gift.email_logo || '',
-                        banner_video_url: (gift.email_banner && gift.email_banner.endsWith('.mp4')) ? gift.email_banner : '',
-                        banner_video_thumbnail: (gift.email_banner && gift.email_banner.endsWith('.mp4')) ? 'http://159.65.181.178/resources/images/video-player.gif' : gift.email_banner,
-                        email_video_url: gift.email_video ? gift.email_video : '',
-                        email_video_thumbnail: gift.email_video ? 'http://159.65.181.178/resources/images/video-player.gif' : '',
-                        gift_url: Config.SITE_LINK + 'collections?gid=' + gift_id,
-                        message: gift.email_message
-                    }
-                };
-                //
-                await sgMail.send(msg);
-                await gift.updateOne({ step: 'opened' });
+
+                let mail_data_array = [];
+                contacts.forEach(function (contact) {
+                    const mail_data = {
+                        to: contact['email'],
+                        from: Config.SENDGRID_SENDER_EMAIL,
+                        subject: 'Gift Email from <' + current_client.email + '>',
+                        templateId: 'd-feadacdf21f948e0a784e43c71e596d3',
+                        dynamic_template_data: {
+                            logo_url: gift.email_logo || '',
+                            banner_video_url: (gift.email_banner && gift.email_banner.endsWith('.mp4')) ? gift.email_banner : '',
+                            banner_video_thumbnail: (gift.email_banner && gift.email_banner.endsWith('.mp4'))
+                                ? 'http://159.65.181.178/resources/images/video-player.gif' : gift.email_banner,
+                            email_video_url: gift.email_video ? gift.email_video : '',
+                            email_video_thumbnail: gift.email_video
+                                ? 'http://159.65.181.178/resources/images/video-player.gif' : '',
+                            gift_url: Config.SITE_LINK + 'collections?gid=' + contact['gift_id'],
+                            message: gift.email_message
+                        }
+                    };
+                    mail_data_array.push(mail_data);
+                });
+
+                await sgMail.send(mail_data_array);
+
                 return res.send({
                     status: 'success'
                 });

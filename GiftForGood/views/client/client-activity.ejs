@@ -11,7 +11,7 @@
 
     <div class="admin_main">
 
-        <div class="alert alert-dismissible fade show signed_alart" role="alert">
+        <div class="alert alert-dismissible fade show signed_alart d-none" role="alert">
             <img src="/resources/images/icons/green-tic.png" alt="img"/>
             Signed in successfully.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -59,6 +59,9 @@
                 <div class="admin_subtitle d-none">
                     <h4>Past orders</h4>
                 </div>
+                <% if (!gifts.length) { %>
+                    <div class="pastorder_item text-center"><span style="font-size: 25px;">No gift activity found.</span></div>
+                <% } %>
                 <% for (let i = 0; i < gifts.length; i++) { %>
                 <div class="pastorder_item">
                     <table border="0" cellspacing="0" cellpadding="0">

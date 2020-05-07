@@ -11,7 +11,7 @@
 
     <div class="admin_main">
 
-        <div class="alert alert-dismissible fade show signed_alart" role="alert">
+        <div class="alert alert-dismissible fade show signed_alart d-none" role="alert">
             <img src="/resources/images/icons/green-tic.png" alt="img"/>
             Signed in successfully.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +35,7 @@
                     <div class="col-md-8">
                         <div class="information_form admin_search_input">
                             <div class="form-group search_input">
-                                <input type="text" class="form-control" id="user-name" placeholder="Search gifts by typing name or email">
+                                <input type="text" class="form-control" id="gift-search" placeholder="Search gifts by typing name or email">
                             </div>
                         </div>
                     </div>
@@ -105,8 +105,8 @@
                         <img class="user_face" src="/resources/images/users/6.png" alt="img">
                     </div>
                     <div class="gifts_client_info_txt">
-                        <h4><%= gifts[i]['rec_first_name'] %> <%= gifts[i]['rec_last_name'] %></h4>
-                        <h5><%= gifts[i]['rec_email'] %></h5>
+                        <h4 id="rec-name"><%= gifts[i]['rec_first_name'] %> <%= gifts[i]['rec_last_name'] %></h4>
+                        <h5 id="rec-email"><%= gifts[i]['rec_email'] %></h5>
                         <p>
                             <img src="/resources/images/icons/map-marker.png" alt="icon">
                             <%= gifts[i]['rec_address'] %>
@@ -134,8 +134,20 @@
 
 <% include ../partials/foot.ejs %>
 
-<script>
+<script type="text/javascript">
+    $('#gift-search').keyup(function (e) {
+        const search_key = $(this).val().toLowerCase();
+        $('.admin_main .gifts_area').each(function () {
+            const rec_name = $(this).find('#rec-name').text().toLowerCase();
+            const rec_email = $(this).find('#rec-email').text().toLowerCase();
 
+            if (rec_name.includes(search_key) || rec_email.includes(search_key)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    })
 </script>
 
 </body>

@@ -1,5 +1,9 @@
 <!-- Header Area Start -->
 
+<div class="alert alert-bar alert-success text-center" id="alert-bar">
+    <strong id="alert-title"></strong> <span id="alert-content"></span>
+</div>
+
 <% if (page_title === 'gift-note') { %>
 <header class="note_header">
     <div class="container">
@@ -36,6 +40,7 @@
                             <div class="btn-group">
                                 <button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="box-shadow: none;">
                                     <img src="/resources/images/icons/buy.svg" alt="icon"/>
+                                    <a href="#" class="badge badge-warning" id="cart-badge"></a>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right get_dropdown">
                                     <div class="dropdown_gift_option">
